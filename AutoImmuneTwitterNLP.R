@@ -290,3 +290,66 @@ for (j in 1:length(Ce)){
 setwd('../')
 
 
+###############################################################################
+
+#NLP and preprocessing 
+
+library(tm)
+library(SnowballC)
+library(wordcloud)
+library(ggplot2)
+
+celiac <- Corpus(DirSource("Celiac"))
+
+
+celiac
+
+celiac <- tm_map(celiac, removePunctuation)
+celiac <- tm_map(celiac, removeNumbers)
+celiac <- tm_map(celiac, tolower)
+celiac <- tm_map(celiac, removeWords, stopwords("english"))
+celiac <- tm_map(celiac, stripWhitespace)
+celiac <- tm_map(celiac, stemDocument)
+
+dtmCeliac <- DocumentTermMatrix(celiac)
+dtmCeliac
+# <<DocumentTermMatrix (documents: 50, terms: 22)>>
+#   Non-/sparse entries: 1100/0
+# Sparsity           : 0%
+# Maximal term length: 16
+# Weighting          : term frequency (tf)
+# 
+freq <- colSums(as.matrix(dtmCeliac))
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+
+freq[head(ord, 25)]
+# unknown        treatment        bacterium             call           discov 
+# 150              100               50               50               50 
+# diseas              eat            enzym          favorit     gfglobetrott 
+# 50               50               50               50               50 
+# gluten httpbufflyistuno            insid              man              mar 
+# 50               50               50               50               50 
+# pac          possibl           pulver             race           rothia 
+# 50               50               50               50               50 
+# safe   unknownsafeeat 
+# 50               50 
+
+findAssocs(dtmCeliac, "unknown", corlimit=0.01)
+
+findAssocs(dtmCeliac, "enzym", corlimit=0.01)
+
+
+findAssocs(dtmCeliac, "discov", corlimit=0.01)
+
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>2), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+
+wordcloud(names(freq), freq, min.freq=10,colors=brewer.pal(3,'Dark2'))
+
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
