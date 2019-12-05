@@ -224,9 +224,67 @@ setwd('../')
 ms <- as.character(MS$Tweet)
 setwd('./MS')
 for (j in 1:length(ms)){
-  
-  for (i in seq_along(ms)){
-    write(ra[i], paste(paste('MS',j, sep='.'), '.txt', sep=''))
+    for (i in seq_along(ms)){
+    write(ms[i], paste(paste('MS',j, sep='.'), '.txt', sep=''))
+    }
+}
+setwd('../')
+
+
+lk <- as.character(Leukemia$Tweet)
+setwd('./Leukemia')
+for (j in 1:length(lk)){
+  for (i in seq_along(lk)){
+    write(lk[i], paste(paste('LK',j, sep='.'), '.txt', sep=''))
+  }
+}
+setwd('../')
+
+
+Kd <- as.character(Kidney$Tweet)
+setwd('./Kidney')
+for (j in 1:length(Kd)){
+  for (i in seq_along(Kd)){
+    write(Kd[i], paste(paste('Kd',j, sep='.'), '.txt', sep=''))
+  }
+}
+setwd('../')
+
+
+Hs <- as.character(Hashimoto$Tweet)
+setwd('./Hashimoto')
+for (j in 1:length(Hs)){
+  for (i in seq_along(Hs)){
+    write(Hs[i], paste(paste('Hs',j, sep='.'), '.txt', sep=''))
+  }
+}
+setwd('../')
+
+
+Fs <- as.character(Fibromyalgia$Tweet)
+setwd('./Fibromyalgia')
+for (j in 1:length(Fs)){
+  for (i in seq_along(Fs)){
+    write(Fs[i], paste(paste('Fs',j, sep='.'), '.txt', sep=''))
+  }
+}
+setwd('../')
+
+Cr <- as.character(Chron$Tweet)
+setwd('./Chron')
+for (j in 1:length(Cr)){
+  for (i in seq_along(Cr)){
+    write(Cr[i], paste(paste('Cr',j, sep='.'), '.txt', sep=''))
+  }
+}
+setwd('../')
+
+
+Ce <- as.character(Celiac$Tweet)
+setwd('./Celiac')
+for (j in 1:length(Ce)){
+  for (i in seq_along(Ce)){
+    write(Ce[i], paste(paste('Ce',j, sep='.'), '.txt', sep=''))
   }
 }
 setwd('../')
