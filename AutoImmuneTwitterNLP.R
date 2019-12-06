@@ -210,13 +210,11 @@ write.csv(MS, 'MS.csv', row.names=FALSE)
 write.csv(Leukemia, 'Leukemia.csv', row.names=FALSE)
 write.csv(Chron, 'Chron.csv', row.names=FALSE)
 
+
 ra <- as.character(RA$Tweet)
 setwd('./RA')
 for (j in 1:length(ra)){
-  
-    for (i in seq_along(ra)){
-    write(ra[i], paste(paste('RA',j, sep='.'), '.txt', sep=''))
-    }
+  write(ra[j], paste(paste('RA',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -224,9 +222,7 @@ setwd('../')
 ms <- as.character(MS$Tweet)
 setwd('./MS')
 for (j in 1:length(ms)){
-    for (i in seq_along(ms)){
-    write(ms[i], paste(paste('MS',j, sep='.'), '.txt', sep=''))
-    }
+  write(ms[j], paste(paste('MS',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -234,9 +230,7 @@ setwd('../')
 lk <- as.character(Leukemia$Tweet)
 setwd('./Leukemia')
 for (j in 1:length(lk)){
-  for (i in seq_along(lk)){
-    write(lk[i], paste(paste('LK',j, sep='.'), '.txt', sep=''))
-  }
+  write(lk[j], paste(paste('Lk',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -244,9 +238,7 @@ setwd('../')
 Kd <- as.character(Kidney$Tweet)
 setwd('./Kidney')
 for (j in 1:length(Kd)){
-  for (i in seq_along(Kd)){
-    write(Kd[i], paste(paste('Kd',j, sep='.'), '.txt', sep=''))
-  }
+  write(Kd[j], paste(paste('Kd',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -254,9 +246,7 @@ setwd('../')
 Hs <- as.character(Hashimoto$Tweet)
 setwd('./Hashimoto')
 for (j in 1:length(Hs)){
-  for (i in seq_along(Hs)){
-    write(Hs[i], paste(paste('Hs',j, sep='.'), '.txt', sep=''))
-  }
+  write(Hs[j], paste(paste('Hs',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -264,18 +254,14 @@ setwd('../')
 Fs <- as.character(Fibromyalgia$Tweet)
 setwd('./Fibromyalgia')
 for (j in 1:length(Fs)){
-  for (i in seq_along(Fs)){
-    write(Fs[i], paste(paste('Fs',j, sep='.'), '.txt', sep=''))
-  }
+  write(Fs[j], paste(paste('Fs',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
 Cr <- as.character(Chron$Tweet)
 setwd('./Chron')
 for (j in 1:length(Cr)){
-  for (i in seq_along(Cr)){
-    write(Cr[i], paste(paste('Cr',j, sep='.'), '.txt', sep=''))
-  }
+  write(Cr[j], paste(paste('Cr',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -283,9 +269,7 @@ setwd('../')
 Ce <- as.character(Celiac$Tweet)
 setwd('./Celiac')
 for (j in 1:length(Ce)){
-  for (i in seq_along(Ce)){
-    write(Ce[i], paste(paste('Ce',j, sep='.'), '.txt', sep=''))
-  }
+  write(Ce[j], paste(paste('Ce',j, sep='.'), '.txt', sep=''))
 }
 setwd('../')
 
@@ -320,22 +304,19 @@ dtmCeliac
 # Weighting          : term frequency (tf)
 # 
 freq <- colSums(as.matrix(dtmCeliac))
+
+# Replace the UNKNOWN with the disease name dn
+
+dn <- 'celiac'
+names(freq)[21] <- dn
+names(freq)
+
 FREQ <- data.frame(freq)
 ord <- order(freq, decreasing=TRUE)
 
 freq[head(ord, 25)]
-# unknown        treatment        bacterium             call           discov 
-# 150              100               50               50               50 
-# diseas              eat            enzym          favorit     gfglobetrott 
-# 50               50               50               50               50 
-# gluten httpbufflyistuno            insid              man              mar 
-# 50               50               50               50               50 
-# pac          possibl           pulver             race           rothia 
-# 50               50               50               50               50 
-# safe   unknownsafeeat 
-# 50               50 
 
-findAssocs(dtmCeliac, "unknown", corlimit=0.01)
+findAssocs(dtmCeliac, dn, corlimit=0.01)
 
 findAssocs(dtmCeliac, "enzym", corlimit=0.01)
 
