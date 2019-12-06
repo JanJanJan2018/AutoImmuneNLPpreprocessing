@@ -334,3 +334,166 @@ wordcloud(names(freq), freq, min.freq=10,colors=brewer.pal(3,'Dark2'))
 
 wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
 
+############################################################################
+
+Celiac <- Corpus(DirSource("Celiac"))
+Celiac <- tm_map(Celiac, removePunctuation)
+Celiac <- tm_map(Celiac, removeNumbers)
+Celiac <- tm_map(Celiac, tolower)
+
+
+
+Chron <- Corpus(DirSource("Chron"))
+Chron <- tm_map(Chron, removePunctuation)
+Chron <- tm_map(Chron, removeNumbers)
+Chron <- tm_map(Chron, tolower)
+
+
+
+
+Fibromyalgia <- Corpus(DirSource("Fibromyalgia"))
+Fibromyalgia <- tm_map(Fibromyalgia, removePunctuation)
+Fibromyalgia <- tm_map(Fibromyalgia, removeNumbers)
+Fibromyalgia <- tm_map(Fibromyalgia, tolower)
+
+
+
+Hashimoto <- Corpus(DirSource("Hashimoto"))
+Hashimoto <- tm_map(Hashimoto, removePunctuation)
+Hashimoto <- tm_map(Hashimoto, removeNumbers)
+Hashimoto <- tm_map(Hashimoto, tolower)
+
+
+
+Kidney <- Corpus(DirSource("Kidney"))
+Kidney <- tm_map(Kidney, removePunctuation)
+Kidney <- tm_map(Kidney, removeNumbers)
+Kidney <- tm_map(Kidney, tolower)
+
+
+
+Leukemia <- Corpus(DirSource("Leukemia"))
+Leukemia <- tm_map(Leukemia, removePunctuation)
+Leukemia <- tm_map(Leukemia, removeNumbers)
+Leukemia <- tm_map(Leukemia, tolower)
+
+
+RA <- Corpus(DirSource("RA"))
+RA <- tm_map(RA, removePunctuation)
+RA <- tm_map(RA, removeNumbers)
+RA <- tm_map(RA, tolower)
+
+
+
+MS <- Corpus(DirSource("MS"))
+MS <- tm_map(MS, removePunctuation)
+MS <- tm_map(MS, removeNumbers)
+MS <- tm_map(MS, tolower)
+
+#Celiac Disease
+m <- strsplit(Celiac$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) #50X1
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("Celiac_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+CD <- cbind(M_t, type)
+
+#Hashimoto Disease
+m <- strsplit(Hashimoto$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("Hashimoto_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+HD <- cbind(M_t, type)
+
+#Leukemia
+m <- strsplit(Leukemia$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("Leukemia_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+LD <- cbind(M_t, type)
+
+#RA
+m <- strsplit(RA$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("RA_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+RA <- cbind(M_t, type)
+
+#MS
+m <- strsplit(MS$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("MS_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+MS <- cbind(M_t, type)
+
+#Chron
+m <- strsplit(Chron$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("Chron_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+Chron <- cbind(M_t, type)
+
+#Kidney
+m <- strsplit(Kidney$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("Kidney_Disease",length(M_t)))
+colnames(type) <- 'Type'
+
+Kd <- cbind(M_t, type)
+
+#Fibromyalgia
+m <- strsplit(Fibromyalgia$content, '^ce*txt$')
+M <- as.data.frame(m)
+M_t <- t(M) 
+head(M_t)
+row.names(M_t) <- NULL
+colnames(M_t) <- 'Tweet'
+
+type <- as.data.frame(rep("Fibromyalgia",length(M_t)))
+colnames(type) <- 'Type'
+
+FD <- cbind(M_t, type)
+
+pythonReady <- rbind(CD,HD,Chron,FD,RA,MS,Kd,LD)
+
+write.csv(pythonReady, 'pythonAutoImmuneNLP-ready.csv', row.names=FALSE)
