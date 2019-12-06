@@ -1,0 +1,1111 @@
+---
+title: "Auto Immune NLP Word Associations"
+author: "Janis Corona"
+date: "12/6/2019"
+output: html_document
+---
+
+## This accompanying file 'AutoimmuneTwitterAI-Disease-Treatments.csv'
+scraped 11-119 twitter posts and comments on treatments
+for auto immune diseases: *fibromyalgia*, *chrons*, *hashimoto*, *multiple sclerosis*,
+*rheumatoid arthritis (RA)*, *leukemia*, and also *kidney disease* and *celiac disease*
+
+This script will preprocess and put the diseases into groups by disease,
+then it will create what disease it is categorized, remove the disease name 
+from the twitter comment, and create a target variable to use ML on 
+to classify if the tweet is one of those types of diseases.
+
+## Further NLP work will be done in python 3 to classify the disease and
+return the probability of the tweet being one of those above diseases.
+
+## Read in the initial Twitter scraped file of tweets on autoimmune diseases selected
+
+
+# Knit to html throws eval errors that stop the run, from not recognizing
+# objects, so these lines work in the program, but not when html knit is
+# used as Auto is not being recognized as an object, even though it is in the # environment as such of RStudio
+
+```{r, eval=FALSE, echo=FALSE}
+Auto1 <- read.csv('AutoImmuneTwitterAI-Disease-Treatments.csv', sep=',',
+                 header=TRUE, na.strings=c('',' ','NA'))
+```
+
+## Remove rows that were formatted in excel but that have no data for all fields
+
+```{r}
+#auto <- Auto[!is.na(Auto$TwitterLeukemiaTreatment),]#Leukemia has most obs
+auto <- Auto1[1:119,]
+
+colnames(auto) #remove col 12:16
+auto <- auto[,1:11]
+```
+
+## Remove twitter and treatment from the colnames,
+some earlier fields were scraped with 'symptom' search but changed later
+
+```{r}
+colnames(auto) <- gsub('Twitter','',colnames(auto))
+colnames(auto) <- gsub('Treatment', '', colnames(auto))
+colnames(auto) <- gsub('_Treatment', '', colnames(auto))
+colnames(auto) <- gsub('_','', colnames(auto))
+
+colnames(auto)
+
+```
+
+## Combine the symptoms with the disease
+
+```{r}
+length(na.omit(auto$CeliacDiseaseSymptoms))#11
+length(na.omit(auto$KidneyDiseaseSymptoms)) #13
+length(na.omit(auto$RADiseaseSymptoms)) #18
+
+celiac <- as.character(na.omit(auto$CeliacDiseaseSymptoms))
+Kidney <- as.character(na.omit(auto$KidneyDiseaseSymptoms))
+RA <- as.character(na.omit(auto$RADiseaseSymptoms))
+
+celiac2 <- as.character(na.omit(auto$Celiac))
+Kidney2 <- as.character(na.omit(auto$KidneyDisease))
+RA2 <- as.character(na.omit(auto$RAArthritis))
+
+celiac3 <- c(celiac2,as.character(rep('NA',119-length(celiac2))))
+Kidney3 <- c(Kidney2,as.character(rep('NA',119-length(Kidney2))))
+RA3 <- c(RA2, as.character(rep('NA', 119-length(RA2))))
+
+auto$Celiac <- celiac3
+auto$RAArthritis <- RA3
+auto$KidneyDisease <- Kidney3
+
+colnames(auto)
+```
+
+## Keep only the columns interested in after combining a few related tweets
+
+```{r}
+Auto <- auto[,4:11]
+
+colnames(Auto)
+# [1] "RAArthritis"       "Celiac"            "KidneyDisease"
+# [4] "Leukemia"          "multipleSclerosis" "fibromyalgia"
+# [7] "hashimotoSyndrome" "chrons"
+
+write.csv(Auto, 'AutoImmune.csv', row.names=FALSE)
+Auto <- read.csv('AutoImmune.csv', sep=',', header=TRUE, na.strings=c('',' ','NA'))
+```
+
+
+## Replace the disease with the 'UNKNOWN' to test the target variable when using ML
+
+```{r}
+Auto$RAArthritis <- gsub('[aA]rthritis','UNKNOWN',Auto$RAArthritis)
+Auto$RAArthritis <- gsub('[rR]heumatoid','UNKNOWN', Auto$RAArthritis)
+Auto$RAArthritis <- gsub('[rR]heum','UNKNOWN', Auto$RAArthritis)
+Auto$RAArthritis <- gsub('[R][A]','UNKNOWN', Auto$RAArthritis)
+
+Auto$Celiac <- gsub('[cC]eliac','UNKNOWN', Auto$Celiac)
+Auto$Celiac <- gsub('[cC][eE][lL][iI][aA][cC]','UNKNOWN', Auto$Celiac)
+Auto$Celiac <- gsub('[lL][iI][aA][cC]','UNKNOWN', Auto$Celiac)
+
+Auto$KidneyDisease <- gsub('[kK][iI][dD][nN][eE][yY]','UNKNOWN',Auto$KidneyDisease)
+
+Auto$Leukemia <- gsub('[lL][eE][kK][eE][mM][iI][aA]','UNKNOWN',Auto$Leukemia)
+
+Auto$multipleSclerosis <- gsub('multiple','UNKNOWN', Auto$multipleSclerosis)
+Auto$multipleSclerosis <- gsub('sclerosis','UNKNOWN', Auto$multipleSclerosis)
+Auto$multipleSclerosis <- gsub('MULTIPLE','UNKNOWN', Auto$multipleSclerosis)
+Auto$multipleSclerosis <- gsub('SCLEROSIS','UNKNOWN', Auto$multipleSclerosis)
+Auto$multipleSclerosis <- gsub('MS','UNKNOWN', Auto$multipleSclerosis)
+
+Auto$fibromyalgia <- gsub('[fF][iI][bB][rR][oO][mM][yY][aA][lL][gG][iI][aA]',
+                          'UNKNOWN', Auto$fibromyalgia)
+
+Auto$hashimotoSyndrome <- gsub('hashimoto', 'UNKNOWN', Auto$hashimotoSyndrome)
+Auto$hashimotoSyndrome <- gsub('HASHIMOTO', 'UNKNOWN', Auto$hashimotoSyndrome)
+Auto$hashimotoSyndrome <- gsub('SYNDROM', 'UNKNOWN', Auto$hashimotoSyndrome)
+Auto$hashimotoSyndrome <- gsub('syndrom', 'UNKNOWN', Auto$hashimotoSyndrome)
+Auto$hashimotoSyndrome <- gsub('hashi', 'UNKNOWN', Auto$hashimotoSyndrome)
+Auto$hashimotoSyndrome <- gsub('Hashi', 'UNKNOWN', Auto$hashimotoSyndrome)
+Auto$hashimotoSyndrome <- gsub('moto', 'UNKNOWN', Auto$hashimotoSyndrome)
+
+Auto$chrons <- gsub('chron','UNKNOWN', Auto$chrons)
+Auto$chrons <- gsub('CHRON', 'UNKNOWN', Auto$chrons)
+
+write.csv(Auto, 'AutoImmuneUNKNOWN.csv', row.names=FALSE)
+```
+
+
+## Create a table that has the type of disease from each tweet to use as the target
+
+The column names:
+  "RAArthritis"       "Celiac"            "KidneyDisease"     "Leukemia"
+  "multipleSclerosis" "fibromyalgia"      "hashimotoSyndrome" "chrons"
+
+```{r}
+RA <- Auto$RAArthritis
+Celiac <- Auto$Celiac
+Kidney <- Auto$KidneyDisease
+Leukemia <- Auto$Leukemia
+MS <- Auto$multipleSclerosis
+fibro <- Auto$fibromyalgia
+hashi <- Auto$hashimotoSyndrome
+chron <- Auto$chrons
+
+RA1 <- as.data.frame(na.omit(RA))#28
+Celiac1 <- as.data.frame(na.omit(Celiac))#50
+Kidney1 <- as.data.frame(na.omit(Kidney))#43
+Leukemia1 <- as.data.frame(na.omit(Leukemia))#119
+MS1 <- as.data.frame(na.omit(MS))#119
+fibro1 <- as.data.frame(na.omit(fibro))#99
+hashi1 <- as.data.frame(na.omit(hashi))#30
+chron1 <- as.data.frame(na.omit(chron))#19
+
+colnames(RA1) <- 'Tweet'
+colnames(Celiac1) <- 'Tweet'
+colnames(Kidney1) <- 'Tweet'
+colnames(Leukemia1) <- 'Tweet'
+colnames(MS1) <- 'Tweet'
+colnames(fibro1) <- 'Tweet'
+colnames(hashi1) <- 'Tweet'
+colnames(chron1) <- 'Tweet'
+
+tweets <- rbind(RA1,Celiac1,Kidney1,Leukemia1,MS1,fibro1,hashi1,chron1)
+```
+
+```{r}
+ra <- as.data.frame(rep('Rheumatoid Arthritis',28))
+celiac <- as.data.frame(rep('Celiac Disease', 50))
+kidney <- as.data.frame(rep('Kidney Disease', 43))
+leukemia <- as.data.frame(rep('Leukemia', 119))
+ms <- as.data.frame(rep('Multiple Sclerosis', 119))
+fibro <- as.data.frame(rep('Fibromyalgia', 99))
+hashi <- as.data.frame(rep('Hashimoto Disease', 30))
+chron <- as.data.frame(rep('Chron\'s Disease', 19))
+
+colnames(ra) <- 'Type'
+colnames(celiac) <- 'Type'
+colnames(kidney) <- 'Type'
+colnames(leukemia) <- 'Type'
+colnames(ms) <- 'Type'
+colnames(fibro) <- 'Type'
+colnames(hashi) <- 'Type'
+colnames(chron) <- 'Type'
+
+Type <- rbind(ra,celiac,kidney,leukemia,ms,fibro,hashi,chron)
+
+Targeted <- cbind(tweets,Type)
+
+write.csv(Targeted, 'TargetReady.csv', row.names=FALSE)
+```
+
+## Remove the cuss words that are shown at first glance because they are distracting
+
+```{r}
+Target <- read.csv('TargetReady.csv', sep=',', header=TRUE)
+
+Target$Tweet <- gsub('[fF]uck','CURSE WORD', Target$Tweet)
+Target$Tweet <- gsub('[sS]hit', 'CURSE WORD', Target$Tweet)
+
+write.csv(Target, 'TargetReady_noCuss.csv', row.names=FALSE)
+```
+
+
+## The following will create folders for each of the 8 autoimmune diseases
+Then it will loop in as a separate text file each of the observations in the
+data table of autoimmune disease tweets next to their class type to each respective folder
+
+```{r}
+Target <- read.csv('TargetReady_noCuss.csv',sep=',', header=TRUE)
+
+types <- unique(Target$Type)
+
+RA <- Target[grep(types[1], Target$Type),]
+Celiac <- Target[grep(types[2], Target$Type),]
+Kidney <- Target[grep(types[3], Target$Type),]
+Leukemia <- Target[grep(types[4], Target$Type),]
+MS <- Target[grep(types[5], Target$Type),]
+Fibromyalgia <- Target[grep(types[6], Target$Type),]
+Hashimoto <- Target[grep(types[7], Target$Type),]
+Chron <- Target[grep(types[8], Target$Type),]
+
+dir.create('./RA1')
+dir.create('./Celiac1')
+dir.create('./Kidney1')
+dir.create('./Leukemia1')
+dir.create('./MS1')
+dir.create('./Fibromyalgia1')
+dir.create('./Hashimoto1')
+dir.create('./Chron1')
+```
+
+## Start writing in the separate tweets for the eight autoimmune diseases
+selected tweets
+
+```{r}
+write.csv(RA, 'RA.csv', row.names=FALSE)
+write.csv(Celiac, 'Celiac.csv', row.names=FALSE)
+write.csv(Kidney, 'Kidney.csv', row.names=FALSE)
+write.csv(Hashimoto, 'Hashimoto.csv', row.names=FALSE)
+write.csv(Fibromyalgia, 'Fibromyalgia.csv', row.names=FALSE)
+write.csv(MS, 'MS.csv', row.names=FALSE)
+write.csv(Leukemia, 'Leukemia.csv', row.names=FALSE)
+write.csv(Chron, 'Chron.csv', row.names=FALSE)
+```
+
+## RA files for tweets corpus of RA
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+ra <- as.character(RA$Tweet)
+setwd('./RA1')
+for (j in 1:length(ra)){
+  write(ra[j], paste(paste('RA',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## MS files for tweets into MS corpus
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+ms <- as.character(MS$Tweet)
+setwd('./MS1')
+for (j in 1:length(ms)){
+  write(ms[j], paste(paste('MS',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## Leukemia files into the Leukemia corpus of tweets folder
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+lk <- as.character(Leukemia$Tweet)
+setwd('./Leukemia1')
+for (j in 1:length(lk)){
+  write(lk[j], paste(paste('Lk',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## Kidney disease tweets into the Kidney Disease corpus
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+Kd <- as.character(Kidney$Tweet)
+setwd('./Kidney1')
+for (j in 1:length(Kd)){
+  write(Kd[j], paste(paste('Kd',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## Hashimoto files into the Hashimoto corpus folder of tweets
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+Hs <- as.character(Hashimoto$Tweet)
+setwd('./Hashimoto1')
+for (j in 1:length(Hs)){
+  write(Hs[j], paste(paste('Hs',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## Fibromyalgia tweets for the Fibromyalgia corpus
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+Fs <- as.character(Fibromyalgia$Tweet)
+setwd('./Fibromyalgia1')
+for (j in 1:length(Fs)){
+  write(Fs[j], paste(paste('Fs',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## Chron's Disease tweets in the Chrons corpus of tweets
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+Cr <- as.character(Chron$Tweet)
+setwd('./Chron1')
+for (j in 1:length(Cr)){
+  write(Cr[j], paste(paste('Cr',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+```
+
+## Celiac disease tweets into the Celiac Disease corpus
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+Ce <- as.character(Celiac$Tweet)
+setwd('./Celiac1')
+for (j in 1:length(Ce)){
+    write(Ce[j], paste(paste('Ce',j, sep='.'), '.txt', sep=''))
+}
+setwd('../')
+
+```
+
+## Preprocessing
+cleaning up the text of characters and stemming the words, removing
+stopwords and special characters
+
+```{r , message=FALSE, error=FALSE, warning=FALSE}
+library(tm)
+library(SnowballC)
+library(wordcloud)
+library(ggplot2)
+```
+
+```{r }
+celiac <- Corpus(DirSource("Celiac1"))
+
+
+celiac
+
+celiac <- tm_map(celiac, removePunctuation)
+celiac <- tm_map(celiac, removeNumbers)
+celiac <- tm_map(celiac, tolower)
+celiac <- tm_map(celiac, removeWords, stopwords("english"))
+celiac <- tm_map(celiac, stripWhitespace)
+celiac <- tm_map(celiac, stemDocument)
+```
+
+
+## Another way is to use a root word based on the word being an adj.,n.,v. 
+called lemmatization, but this uses a vector as in the original data table that was split into a corpus of text documents, the text mining package tm relies on a corpus of documents to clean the files, and python 3's UTF=8 format won't read in some
+characters in the AutoImmuneUNKNOWN.csv file that was built.
+
+ex:
+
+library(textstem)
+
+celiac1 <- lemmatize_strings(Auto$Celiac, dictionary=lexicon::hash_lemmas)
+
+## Create the document term matrix (dtm) for this corpus of Celiac Disease tweets
+```{r}
+dtmCeliac <- DocumentTermMatrix(celiac)
+dtmCeliac
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmCeliac))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'celiac'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[1]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+```{r}
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+head(FREQ)
+```
+
+
+```{r}
+grep('celiac',names(freq))
+```
+
+## The dtmCeliac colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmCeliac)[unk[1]] <- dn
+findAssocs(dtmCeliac, dn, corlimit=0.7)
+
+findAssocs(dtmCeliac, "enzym", corlimit=0.5)
+
+
+findAssocs(dtmCeliac, "discov", corlimit=0.7)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>3), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=3,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
+## Now run the NLP word cloud and word frequencies for the other seven autoimmune diseases
+
+
+```{r }
+kidney <- Corpus(DirSource("Kidney1"))
+
+
+kidney
+
+kidney <- tm_map(kidney, removePunctuation)
+kidney <- tm_map(kidney, removeNumbers)
+kidney <- tm_map(kidney, tolower)
+kidney <- tm_map(kidney, removeWords, stopwords("english"))
+kidney <- tm_map(kidney, stripWhitespace)
+kidney <- tm_map(kidney, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmkidney <- DocumentTermMatrix(kidney)
+dtmkidney
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmkidney))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'kidney'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[1]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+
+
+```{r}
+grep('kidney',names(freq))
+```
+
+## The dtmkidney colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmkidney)[unk[1]] <- dn
+findAssocs(dtmkidney, dn, corlimit=0.4)
+
+findAssocs(dtmkidney, "dialysi", corlimit=0.5)
+
+
+findAssocs(dtmkidney, "treatment", corlimit=0.5)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>3), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=3,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
+
+```{r }
+leukemia <- Corpus(DirSource("Leukemia1"))
+
+
+leukemia
+
+leukemia <- tm_map(leukemia, removePunctuation)
+leukemia <- tm_map(leukemia, removeNumbers)
+leukemia <- tm_map(leukemia, tolower)
+leukemia <- tm_map(leukemia, removeWords, stopwords("english"))
+leukemia <- tm_map(leukemia, stripWhitespace)
+leukemia <- tm_map(leukemia, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmleukemia <- DocumentTermMatrix(leukemia)
+dtmleukemia
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmleukemia))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'leukemia'
+
+unk <- grep('unknown', names(freq))
+#names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[1]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+```{r}
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+head(FREQ)
+```
+
+
+```{r}
+grep('leukemia',names(freq))
+```
+
+## The dtmleukemia colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmleukemia)[unk[1]] <- dn
+findAssocs(dtmleukemia, dn, corlimit=0.3)
+
+findAssocs(dtmleukemia, "enzym", corlimit=0.5)
+
+
+findAssocs(dtmleukemia, "discov", corlimit=0.857)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>10), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=10,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+```{r }
+ms <- Corpus(DirSource("MS1"))
+
+
+ms
+
+ms <- tm_map(ms, removePunctuation)
+ms <- tm_map(ms, removeNumbers)
+ms <- tm_map(ms, tolower)
+ms <- tm_map(ms, removeWords, stopwords("english"))
+ms <- tm_map(ms, stripWhitespace)
+ms <- tm_map(ms, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmms <- DocumentTermMatrix(ms)
+dtmms
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmms))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'ms'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[2]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+```{r}
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+head(FREQ)
+```
+
+
+```{r}
+grep('ms',names(freq))
+```
+
+## The dtmms colnames for 'unknown' has to be changed to dn
+
+```{r}
+#colnames(dtmms)[unk[2]] <- dn
+findAssocs(dtmms, 'sclerosi', corlimit=0.3)
+
+findAssocs(dtmms, "multipl", corlimit=0.3)
+
+
+findAssocs(dtmms, "treatment", corlimit=0.4)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>8), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=8,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
+
+```{r }
+fibromyalgia <- Corpus(DirSource("Fibromyalgia1"))
+
+
+fibromyalgia
+
+fibromyalgia <- tm_map(fibromyalgia, removePunctuation)
+fibromyalgia <- tm_map(fibromyalgia, removeNumbers)
+fibromyalgia <- tm_map(fibromyalgia, tolower)
+fibromyalgia <- tm_map(fibromyalgia, removeWords, stopwords("english"))
+fibromyalgia <- tm_map(fibromyalgia, stripWhitespace)
+fibromyalgia <- tm_map(fibromyalgia, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmfibromyalgia <- DocumentTermMatrix(fibromyalgia)
+dtmfibromyalgia
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmfibromyalgia))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'fibromyalgia'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[1]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+```{r}
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+head(FREQ)
+```
+
+
+```{r}
+grep('fibromyalgia',names(freq))
+```
+
+## The dtmfibromyalgia colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmfibromyalgia)[unk[1]] <- dn
+findAssocs(dtmfibromyalgia, dn, corlimit=0.3)
+
+findAssocs(dtmfibromyalgia, "pain", corlimit=0.6)
+
+
+findAssocs(dtmfibromyalgia, "treatment", corlimit=0.35)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>9), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=9,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
+
+
+```{r }
+hashimoto <- Corpus(DirSource("Hashimoto1"))
+
+
+hashimoto
+
+hashimoto <- tm_map(hashimoto, removePunctuation)
+hashimoto <- tm_map(hashimoto, removeNumbers)
+hashimoto <- tm_map(hashimoto, tolower)
+hashimoto <- tm_map(hashimoto, removeWords, stopwords("english"))
+hashimoto <- tm_map(hashimoto, stripWhitespace)
+hashimoto <- tm_map(hashimoto, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmhashimoto <- DocumentTermMatrix(hashimoto)
+dtmhashimoto
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmhashimoto))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'hashimoto'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[1]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+```{r}
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+head(FREQ)
+```
+
+
+```{r}
+grep('hashimoto',names(freq))
+```
+
+## The dtmhashimoto colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmhashimoto)[unk[1]] <- dn
+findAssocs(dtmhashimoto, dn, corlimit=0.4)
+
+findAssocs(dtmhashimoto, "treatment", corlimit=0.4)
+
+
+findAssocs(dtmhashimoto, "thyroid", corlimit=0.4)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>3), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=3,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
+
+
+```{r }
+ra <- Corpus(DirSource("RA1"))
+
+
+ra
+
+ra <- tm_map(ra, removePunctuation)
+ra <- tm_map(ra, removeNumbers)
+ra <- tm_map(ra, tolower)
+ra <- tm_map(ra, removeWords, stopwords("english"))
+ra <- tm_map(ra, stripWhitespace)
+ra <- tm_map(ra, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmra <- DocumentTermMatrix(ra)
+dtmra
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmra))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+dn <- 'ra'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[2]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+```{r}
+FREQ <- data.frame(freq)
+ord <- order(freq, decreasing=TRUE)
+head(FREQ)
+```
+
+
+```{r}
+grep('ra',names(freq))
+```
+
+## The dtmra colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmra)[unk[2]] <- dn
+findAssocs(dtmra, dn, corlimit=0.4)
+
+findAssocs(dtmra, "treatment", corlimit=0.4)
+
+
+findAssocs(dtmra, "pain", corlimit=0.3)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>3), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=3,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
+
+
+```{r }
+chron <- Corpus(DirSource("Chron1"))
+
+
+chron
+
+chron <- tm_map(chron, removePunctuation)
+chron <- tm_map(chron, removeNumbers)
+chron <- tm_map(chron, tolower)
+chron <- tm_map(chron, removeWords, stopwords("english"))
+chron <- tm_map(chron, stripWhitespace)
+chron <- tm_map(chron, stemDocument)
+```
+
+
+## Create the document term matrix (dtm) for this corpus 
+```{r}
+dtmchron <- DocumentTermMatrix(chron)
+dtmchron
+
+
+```
+
+## order the frequencies of each word and store the frequencies and ordered values
+```{r}
+freq <- colSums(as.matrix(dtmchron))
+```
+
+# Replace the UNKNOWN with the disease name dn
+```{r}
+FREQ <- as.data.frame(freq)
+```
+
+```{r}
+dn <- 'chron'
+
+unk <- grep('unknown', names(freq))
+names(freq)[unk]
+```
+
+```{r}
+names(freq)[unk[1]] <- dn
+length(names(freq))
+head(names(freq))
+tail(names(freq))
+```
+
+
+```{r}
+gr <- grep('chron',names(freq))
+names(freq)[gr]
+```
+
+## The dtmchron colnames for 'unknown' has to be changed to dn
+
+```{r}
+colnames(dtmchron)[unk[1]] <- dn
+findAssocs(dtmchron, dn, corlimit=0.3)
+
+findAssocs(dtmchron, "treatment", corlimit=0.5)
+
+
+findAssocs(dtmchron, "diseas", corlimit=0.5)
+```
+
+## This next plot is a bar chart of the word frequencies, unknown is the disease.
+
+```{r, width=500, height=500}
+wf <- data.frame(word=names(freq), freq=freq)
+p <- ggplot(subset(wf, freq>2), aes(word, freq))
+p <- p + geom_bar(stat= 'identity') 
+p <- p + theme(axis.text.x=element_text(angle=90, hjust=1)) 
+p
+
+```
+
+## The next plot is for words with a minimum
+## frequency of 10 in the corpus of tweets.
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, min.freq=3,colors=brewer.pal(3,'Dark2'))
+
+```
+
+## This next plot is a word cloud based on the top 40 words in the corpus 
+
+```{r, width=500, height=500}
+wordcloud(names(freq), freq, max.words=40,colors=brewer.pal(6,'Dark2'))
+
+```
+
+
