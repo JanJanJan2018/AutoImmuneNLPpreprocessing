@@ -497,3 +497,18 @@ FD <- cbind(M_t, type)
 pythonReady <- rbind(CD,HD,Chron,FD,RA,MS,Kd,LD)
 
 write.csv(pythonReady, 'pythonAutoImmuneNLP-ready.csv', row.names=FALSE)
+
+library(textstem)
+
+python <- lemmatize_strings(pythonReady$Tweet, dictionary=lexicon::hash_lemmas)
+
+pyLemma <- as.data.frame(python)
+LemmaPy <- cbind(pyLemma, pythonReady)
+
+colnames(LemmaPy) <- c('LemmatizedTweets','StemmedTweets','AutoImmuneDisorder')
+
+# write to file the comparison of the Lemmatization versus the Stemming 
+# of words. The stopwords and whitespace was not removed, but the punctuation,
+# numbers, and case changed to all lower case was processed on these tweets
+
+write.csv(LemmaPy, 'LemmaPythonRead.csv', row.names=FALSE)
