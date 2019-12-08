@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>lemmatizedTweets-R-firstPreprocessed</title>
+<title>lemmatizedTweets-PythonPreprocessed-Celiac-Binary-probability-test</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,8 +13077,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Autoimmune-Tweets-using-the-mostly-preprocessed-file-from-R-and-testing-on-Lemmatized-Tweets-with-8-categories-of-autoimmune-diseases">Autoimmune Tweets using the mostly preprocessed file from R and testing on Lemmatized Tweets with 8 categories of autoimmune diseases<a class="anchor-link" href="#Autoimmune-Tweets-using-the-mostly-preprocessed-file-from-R-and-testing-on-Lemmatized-Tweets-with-8-categories-of-autoimmune-diseases">&#182;</a></h2><p>Those being: 
-0:Leukemia, 1: Fibromyalgia, 2:Kidney Disease, 3: Celiac Disease, 4: MS, 5: Hashimoto, 6: RA, 7: Chron's Disease</p>
+<h2 id="Autoimmune-Tweets-using-Lemmatized-Tweets-with-8-categories-of-autoimmune-diseases">Autoimmune Tweets using Lemmatized Tweets with 8 categories of autoimmune diseases<a class="anchor-link" href="#Autoimmune-Tweets-using-Lemmatized-Tweets-with-8-categories-of-autoimmune-diseases">&#182;</a></h2><p>to test on Celiac Disease with 2 classes instead of 8
+Python 3.6 results, give a solid accuracy based on the data, but when
+generating probabilites for a set of random tweets outside the data table, give the exact results for all similar or not statements
+Those being: 
+1:Multiple Sclerosis, 2:Celiac, 3: Leukemia, 4: Hashimoto, 5: Fibromyalgia, 6: Kidney Disease, 7: Rheumatoid Arthritis, 8: Chron's Disease</p>
 
 </div>
 </div>
@@ -13107,7 +13110,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="k">import</span> <span class="n">MultinomialNB</span> 
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span> 
  
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">47</span><span class="p">)</span> 
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">507</span><span class="p">)</span> 
  
 </pre></div>
 
@@ -13121,7 +13124,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;LemmaPythonRead.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;unicode_escape&#39;</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;TargetReady_noCuss-binaryAdded.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;unicode_escape&#39;</span><span class="p">)</span> 
 <span class="c1">#the encoding needed for python3 handling nonASCII chars</span>
 </pre></div>
 
@@ -13171,41 +13174,83 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>LemmatizedTweets</th>
-      <th>StemmedTweets</th>
-      <th>AutoImmuneDisorder</th>
+      <th>Tweet</th>
+      <th>Type</th>
+      <th>Celiac_Not</th>
+      <th>Lkm_Not</th>
+      <th>Kd_Not</th>
+      <th>RA_Not</th>
+      <th>MS_Not</th>
+      <th>Chron_Not</th>
+      <th>Fibro_Not</th>
+      <th>Hashi_Not</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>0</td>
-      <td>unknown research unknownresearch the center fo...</td>
-      <td>unknown research\r\nunknownresearch\r\nthe cen...</td>
-      <td>Celiac_Disease</td>
+      <td>UNKNOWNResearchCa\r\n@UNKNOWN_ARC\r\n·\r\n19h\...</td>
+      <td>Rheumatoid Arthritis</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>RA</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>lynn barter abc mc lbarter · dec reply to thre...</td>
-      <td>lynn barter abc mc\r\nlbarter\r\n·\r\ndec \r\n...</td>
-      <td>Celiac_Disease</td>
+      <td>UNKNOWNatology Advisor\r\n@UNKNOWNAdvisor\r\n·...</td>
+      <td>Rheumatoid Arthritis</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>RA</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>theona layne theonawrites · dec unknown diseas...</td>
-      <td>theona layne\r\ntheonawrites\r\n·\r\ndec \r\nu...</td>
-      <td>Celiac_Disease</td>
+      <td>UNKNOWN Community\r\n@our_UNKNOWN\r\n·\r\nDec ...</td>
+      <td>Rheumatoid Arthritis</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>RA</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>bob simonoff simonoffbob · dec there be eviden...</td>
-      <td>bob simonoff\r\nsimonoffbob\r\n·\r\ndec \r\nth...</td>
-      <td>Celiac_Disease</td>
+      <td>UNKNOWN National Research Foundation\r\n@CureU...</td>
+      <td>Rheumatoid Arthritis</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>RA</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>gfdenver gfdenver · nov hm interest research n...</td>
-      <td>gfdenver\r\ngfdenver\r\n·\r\nnov \r\nhm intere...</td>
-      <td>Celiac_Disease</td>
+      <td>Orthopedic News\r\n@Orthopedics_Bio\r\n·\r\nDe...</td>
+      <td>Rheumatoid Arthritis</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>RA</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
   </tbody>
 </table>
@@ -13259,41 +13304,83 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>LemmatizedTweets</th>
-      <th>StemmedTweets</th>
-      <th>AutoImmuneDisorder</th>
+      <th>Tweet</th>
+      <th>Type</th>
+      <th>Celiac_Not</th>
+      <th>Lkm_Not</th>
+      <th>Kd_Not</th>
+      <th>RA_Not</th>
+      <th>MS_Not</th>
+      <th>Chron_Not</th>
+      <th>Fibro_Not</th>
+      <th>Hashi_Not</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>502</td>
-      <td>pharmabot thepharmabot · nov codessly effectiv...</td>
-      <td>pharmabot\r\nthepharmabot\r\n·\r\nnov \r\ncode...</td>
-      <td>Leukemia_Disease</td>
+      <td>All Ezine\r\n@allezine\r\n·\r\nJun 13, 2011\r\...</td>
+      <td>Chron's Disease</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>Chron</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>503</td>
-      <td>wcm lymphoma wcmclymphoma · dec select initial...</td>
-      <td>wcm lymphoma\r\nwcmclymphoma\r\n·\r\ndec \r\ns...</td>
-      <td>Leukemia_Disease</td>
+      <td>Brian Coombes\r\n@BrianKCoombes\r\n·\r\nSep 6\...</td>
+      <td>Chron's Disease</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>Chron</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>504</td>
-      <td>medivizor medivizor · dec cope with cml check ...</td>
-      <td>medivizor\r\nmedivizor\r\n·\r\ndec \r\ncoping ...</td>
-      <td>Leukemia_Disease</td>
+      <td>Purpose ?\r\n@HappyBelieber\r\n·\r\nJan 19, 20...</td>
+      <td>Chron's Disease</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>Chron</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>505</td>
-      <td>abi brokenleadheart · dec reply to rickyspurs ...</td>
-      <td>abi\r\nbrokenleadheart\r\n·\r\ndec \r\nreplyin...</td>
-      <td>Leukemia_Disease</td>
+      <td>K. Ketels-Lichtig\r\n@kklichtig\r\n·\r\nOct 25...</td>
+      <td>Chron's Disease</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>Chron</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
     <tr>
       <td>506</td>
-      <td>brooke xbrooke · dec reply to itsjojosiwa dear...</td>
-      <td>brooke\r\n\r\n\r\nxbrooke\r\n·\r\ndec \r\nrepl...</td>
-      <td>Leukemia_Disease</td>
+      <td>-DC-\r\n @CURSE WORDwitdaDC\r\n·\r\nJul 8, 2...</td>
+      <td>Chron's Disease</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>not</td>
+      <td>Chron</td>
+      <td>not</td>
+      <td>not</td>
     </tr>
   </tbody>
 </table>
@@ -13330,7 +13417,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(507, 3)</pre>
+<pre>(507, 10)</pre>
 </div>
 
 </div>
@@ -13364,32 +13451,32 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>                                      LemmatizedTweets  \
-407  medivizor medivizor · nov cope with cml check ...   
-196  medical news bulletin mednewsbulletin · jun a ...   
-359  drtharanga kumari wickramasooriya drtharanga ·...   
-39   nola unknown unknowndiary · sep reply to nolan...   
-245  christine blome blomechristine · jan our new t...   
+<pre>                                                 Tweet                Type  \
+288  Aleksandar dr Petrov\r\n@aleksandar_BG\r\n·\r\...  Multiple Sclerosis   
+70   Beyond UNKNOWN\r\n@BeyondUNKNOWN\r\n·\r\nSep 1...      Celiac Disease   
+184  #HandsOffVenezuela\r\n@ChicoFreedom\r\n·\r\nDe...            Leukemia   
+459  Adult &amp; Pediatric Ear, Nose &amp; Throat\r\n@EarAd...   Hashimoto Disease   
+448  Angela J. White\r\n@50Plushealths\r\n·\r\nDec ...        Fibromyalgia   
 
-                                         StemmedTweets AutoImmuneDisorder  
-407  medivizor\r\nmedivizor\r\n·\r\nnov \r\ncoping ...   Leukemia_Disease  
-196  medical news bulletin\r\nmednewsbulletin\r\n·\...       Fibromyalgia  
-359  drtharanga kumari wickramasooriya\r\ndrtharang...     Kidney_Disease  
-39   nola unknown\r\nunknowndiary\r\n·\r\nsep  \r\n...     Celiac_Disease  
-245  christine blome\r\nblomechristine\r\n·\r\njan ...         MS_Disease  
-                                      LemmatizedTweets  \
-72   r unknownunknown runknownunknown · h chronic o...   
-264  lorilynn lorilynn · nov multiple unknown be a ...   
-327  unknown guild theunknownguild · nov fridayfin...   
-390  drug topic drugtopics · dec the fda have appro...   
-135  fms news bot fmsbot · nov unknown treatment ma...   
+    Celiac_Not Lkm_Not Kd_Not RA_Not MS_Not Chron_Not Fibro_Not Hashi_Not  
+288        not     not    not    not     MS       not       not       not  
+70      celiac     not    not    not    not       not       not       not  
+184        not     Lkm    not    not    not       not       not       not  
+459        not     not    not    not    not       not       not     Hashi  
+448        not     not    not    not    not       not     fibro       not  
+                                                 Tweet                Type  \
+136  CURE Magazine\r\n@cure_magazine\r\n·\r\nDec 3\...            Leukemia   
+503  Brian Coombes\r\n@BrianKCoombes\r\n·\r\nSep 6\...     Chron&#39;s Disease   
+295  Glynis Edwards\r\n@Glynis4B12\r\n·\r\nNov 26\r...  Multiple Sclerosis   
+452  Mavz\r\n@mattymavz\r\n·\r\nNov 5, 2018\r\nIt&#39;s...        Fibromyalgia   
+112  GrupoCronosSEFH\r\n@GRUPOCRONOSSEF1\r\n·\r\nDe...      Kidney Disease   
 
-                                         StemmedTweets AutoImmuneDisorder  
-72   r unknownunknown\r\nrunknownunknown\r\n·\r\nh\...  Hashimoto_Disease  
-264  lorilynn\r\nlorilynn\r\n·\r\nnov \r\nmultiple ...         MS_Disease  
-327  unknown guild\r\ntheunknownguild\r\n·\r\nnov ...         MS_Disease  
-390  drug topics\r\ndrugtopics\r\n·\r\ndec \r\nthe ...   Leukemia_Disease  
-135  fms news bot\r\nfmsbot\r\n·\r\nnov \r\nunknown...       Fibromyalgia  
+    Celiac_Not Lkm_Not Kd_Not RA_Not MS_Not Chron_Not Fibro_Not Hashi_Not  
+136        not     Lkm    not    not    not       not       not       not  
+503        not     not    not    not    not     Chron       not       not  
+295        not     not    not    not     MS       not       not       not  
+452        not     not    not    not    not       not     fibro       not  
+112        not     not     Kd    not    not       not       not       not  
 </pre>
 </div>
 </div>
@@ -13403,7 +13490,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;AutoImmuneDisorder&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13443,8 +13530,13 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
   <thead>
     <tr>
       <th></th>
-      <th colspan="4" halign="left">LemmatizedTweets</th>
-      <th colspan="4" halign="left">StemmedTweets</th>
+      <th colspan="4" halign="left">Tweet</th>
+      <th colspan="4" halign="left">Celiac_Not</th>
+      <th colspan="2" halign="left">Lkm_Not</th>
+      <th>...</th>
+      <th colspan="2" halign="left">Chron_Not</th>
+      <th colspan="4" halign="left">Fibro_Not</th>
+      <th colspan="4" halign="left">Hashi_Not</th>
     </tr>
     <tr>
       <th></th>
@@ -13456,9 +13548,35 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
       <th>unique</th>
       <th>top</th>
       <th>freq</th>
+      <th>count</th>
+      <th>unique</th>
+      <th>...</th>
+      <th>top</th>
+      <th>freq</th>
+      <th>count</th>
+      <th>unique</th>
+      <th>top</th>
+      <th>freq</th>
+      <th>count</th>
+      <th>unique</th>
+      <th>top</th>
+      <th>freq</th>
     </tr>
     <tr>
-      <th>AutoImmuneDisorder</th>
+      <th>Type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -13471,95 +13589,200 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
   </thead>
   <tbody>
     <tr>
-      <td>Celiac_Disease</td>
+      <td>Celiac Disease</td>
       <td>50</td>
       <td>50</td>
-      <td>blake parson blakepparsons · dec need help for...</td>
+      <td>Vicki\r\n@vvanblaricum\r\n·\r\nDec 2\r\nReplyi...</td>
       <td>1</td>
       <td>50</td>
-      <td>50</td>
-      <td>np agarwal\r\nnpgrwl\r\n·\r\nnov \r\ntreatment...</td>
       <td>1</td>
+      <td>celiac</td>
+      <td>50</td>
+      <td>50</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>50</td>
+      <td>50</td>
+      <td>1</td>
+      <td>not</td>
+      <td>50</td>
+      <td>50</td>
+      <td>1</td>
+      <td>not</td>
+      <td>50</td>
     </tr>
     <tr>
-      <td>Chron_Disease</td>
+      <td>Chron's Disease</td>
       <td>19</td>
       <td>19</td>
-      <td>thomas and ethel bakery thomasandethel · nov r...</td>
+      <td>Lift Resource Centre\r\n@liftcentre\r\n·\r\nJu...</td>
       <td>1</td>
       <td>19</td>
-      <td>19</td>
-      <td>tyler daniel\r\ntylerdaniel\r\n·\r\naug  \r\nb...</td>
       <td>1</td>
+      <td>not</td>
+      <td>19</td>
+      <td>19</td>
+      <td>1</td>
+      <td>...</td>
+      <td>Chron</td>
+      <td>19</td>
+      <td>19</td>
+      <td>1</td>
+      <td>not</td>
+      <td>19</td>
+      <td>19</td>
+      <td>1</td>
+      <td>not</td>
+      <td>19</td>
     </tr>
     <tr>
       <td>Fibromyalgia</td>
       <td>99</td>
-      <td>95</td>
-      <td>fibro bloggers fibrobloggers · nov unknown tre...</td>
+      <td>96</td>
+      <td>Fibro Bloggers\r\n@FibroBloggers\r\n·\r\nNov 2...</td>
       <td>2</td>
       <td>99</td>
-      <td>95</td>
-      <td>chronic disease coalition\r\nchronicrights\r\n...</td>
-      <td>2</td>
+      <td>1</td>
+      <td>not</td>
+      <td>99</td>
+      <td>99</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>99</td>
+      <td>99</td>
+      <td>1</td>
+      <td>fibro</td>
+      <td>99</td>
+      <td>99</td>
+      <td>1</td>
+      <td>not</td>
+      <td>99</td>
     </tr>
     <tr>
-      <td>Hashimoto_Disease</td>
+      <td>Hashimoto Disease</td>
       <td>30</td>
       <td>29</td>
-      <td>colorado natural med drgravesco · dec naturopa...</td>
+      <td>Colorado Natural Med\r\n@drgravesCO\r\n·\r\nDe...</td>
       <td>2</td>
       <td>30</td>
-      <td>29</td>
-      <td>colorado natural med\r\ndrgravesco\r\n·\r\ndec...</td>
-      <td>2</td>
+      <td>1</td>
+      <td>not</td>
+      <td>30</td>
+      <td>30</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>30</td>
+      <td>30</td>
+      <td>1</td>
+      <td>not</td>
+      <td>30</td>
+      <td>30</td>
+      <td>1</td>
+      <td>Hashi</td>
+      <td>30</td>
     </tr>
     <tr>
-      <td>Kidney_Disease</td>
+      <td>Kidney Disease</td>
       <td>43</td>
       <td>43</td>
-      <td>stock shark stocksharks · dec today announce p...</td>
+      <td>Cleveland Clinic MD\r\n@CleClinicMD\r\n·\r\nDe...</td>
       <td>1</td>
       <td>43</td>
-      <td>43</td>
-      <td>eclinic  diagnostics\r\neclinicnigeria\r\nyour...</td>
       <td>1</td>
+      <td>not</td>
+      <td>43</td>
+      <td>43</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>43</td>
+      <td>43</td>
+      <td>1</td>
+      <td>not</td>
+      <td>43</td>
+      <td>43</td>
+      <td>1</td>
+      <td>not</td>
+      <td>43</td>
     </tr>
     <tr>
-      <td>Leukemia_Disease</td>
+      <td>Leukemia</td>
       <td>119</td>
-      <td>116</td>
-      <td>medivizor medivizor · nov cope with cml check ...</td>
-      <td>3</td>
       <td>119</td>
-      <td>116</td>
-      <td>medivizor\r\nmedivizor\r\n·\r\nnov \r\ncoping ...</td>
-      <td>3</td>
+      <td>Medivizor\r\n@medivizor\r\n·\r\nNov 28\r\nCopi...</td>
+      <td>1</td>
+      <td>119</td>
+      <td>1</td>
+      <td>not</td>
+      <td>119</td>
+      <td>119</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>119</td>
+      <td>119</td>
+      <td>1</td>
+      <td>not</td>
+      <td>119</td>
+      <td>119</td>
+      <td>1</td>
+      <td>not</td>
+      <td>119</td>
     </tr>
     <tr>
-      <td>MS_Disease</td>
+      <td>Multiple Sclerosis</td>
       <td>119</td>
       <td>119</td>
-      <td>uonresearch uonresearch · jan fund signal new ...</td>
+      <td>Cannabis Industry UK\r\n@CannaIndustryuk\r\n·\...</td>
       <td>1</td>
       <td>119</td>
-      <td>119</td>
-      <td>multiple sclerosis\r\nunknownbio\r\n·\r\nnov \...</td>
       <td>1</td>
+      <td>not</td>
+      <td>119</td>
+      <td>119</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>119</td>
+      <td>119</td>
+      <td>1</td>
+      <td>not</td>
+      <td>119</td>
+      <td>119</td>
+      <td>1</td>
+      <td>not</td>
+      <td>119</td>
     </tr>
     <tr>
-      <td>RA_Disease</td>
+      <td>Rheumatoid Arthritis</td>
       <td>28</td>
       <td>28</td>
-      <td>gse health blog gsehealth · sep what be the tr...</td>
+      <td>Jessica Daitch\r\n@JessinCharlotte\r\n·\r\nSep...</td>
       <td>1</td>
       <td>28</td>
-      <td>28</td>
-      <td>frontiers medicine\r\nfrontmedicine\r\n·\r\noc...</td>
       <td>1</td>
+      <td>not</td>
+      <td>28</td>
+      <td>28</td>
+      <td>1</td>
+      <td>...</td>
+      <td>not</td>
+      <td>28</td>
+      <td>28</td>
+      <td>1</td>
+      <td>not</td>
+      <td>28</td>
+      <td>28</td>
+      <td>1</td>
+      <td>not</td>
+      <td>28</td>
     </tr>
   </tbody>
 </table>
+<p>8 rows × 36 columns</p>
 </div>
 </div>
 
@@ -13574,178 +13797,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;AutoImmuneDisorder&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[8]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="4" halign="left">LemmatizedTweets</th>
-      <th colspan="4" halign="left">StemmedTweets</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>unique</th>
-      <th>top</th>
-      <th>freq</th>
-      <th>count</th>
-      <th>unique</th>
-      <th>top</th>
-      <th>freq</th>
-    </tr>
-    <tr>
-      <th>AutoImmuneDisorder</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Celiac_Disease</td>
-      <td>50</td>
-      <td>50</td>
-      <td>blake parson blakepparsons · dec need help for...</td>
-      <td>1</td>
-      <td>50</td>
-      <td>50</td>
-      <td>np agarwal\r\nnpgrwl\r\n·\r\nnov \r\ntreatment...</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Chron_Disease</td>
-      <td>19</td>
-      <td>19</td>
-      <td>thomas and ethel bakery thomasandethel · nov r...</td>
-      <td>1</td>
-      <td>19</td>
-      <td>19</td>
-      <td>tyler daniel\r\ntylerdaniel\r\n·\r\naug  \r\nb...</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Fibromyalgia</td>
-      <td>99</td>
-      <td>95</td>
-      <td>fibro bloggers fibrobloggers · nov unknown tre...</td>
-      <td>2</td>
-      <td>99</td>
-      <td>95</td>
-      <td>chronic disease coalition\r\nchronicrights\r\n...</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Hashimoto_Disease</td>
-      <td>30</td>
-      <td>29</td>
-      <td>colorado natural med drgravesco · dec naturopa...</td>
-      <td>2</td>
-      <td>30</td>
-      <td>29</td>
-      <td>colorado natural med\r\ndrgravesco\r\n·\r\ndec...</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Kidney_Disease</td>
-      <td>43</td>
-      <td>43</td>
-      <td>stock shark stocksharks · dec today announce p...</td>
-      <td>1</td>
-      <td>43</td>
-      <td>43</td>
-      <td>eclinic  diagnostics\r\neclinicnigeria\r\nyour...</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Leukemia_Disease</td>
-      <td>119</td>
-      <td>116</td>
-      <td>medivizor medivizor · nov cope with cml check ...</td>
-      <td>3</td>
-      <td>119</td>
-      <td>116</td>
-      <td>medivizor\r\nmedivizor\r\n·\r\nnov \r\ncoping ...</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>MS_Disease</td>
-      <td>119</td>
-      <td>119</td>
-      <td>uonresearch uonresearch · jan fund signal new ...</td>
-      <td>1</td>
-      <td>119</td>
-      <td>119</td>
-      <td>multiple sclerosis\r\nunknownbio\r\n·\r\nnov \...</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>RA_Disease</td>
-      <td>28</td>
-      <td>28</td>
-      <td>gse health blog gsehealth · sep what be the tr...</td>
-      <td>1</td>
-      <td>28</td>
-      <td>28</td>
-      <td>frontiers medicine\r\nfrontmedicine\r\n·\r\noc...</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;LemmatizedTweets&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">text</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">text</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 
@@ -13763,28 +13815,76 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>                                      LemmatizedTweets  \
-407  medivizor medivizor · nov cope with cml check ...   
-196  medical news bulletin mednewsbulletin · jun a ...   
-359  drtharanga kumari wickramasooriya drtharanga ·...   
-39   nola unknown unknowndiary · sep reply to nolan...   
-245  christine blome blomechristine · jan our new t...   
+<pre>                                                 Tweet                Type  \
+288  Aleksandar dr Petrov\r\n@aleksandar_BG\r\n·\r\...  Multiple Sclerosis   
+70   Beyond UNKNOWN\r\n@BeyondUNKNOWN\r\n·\r\nSep 1...      Celiac Disease   
+184  #HandsOffVenezuela\r\n@ChicoFreedom\r\n·\r\nDe...            Leukemia   
+459  Adult &amp; Pediatric Ear, Nose &amp; Throat\r\n@EarAd...   Hashimoto Disease   
+448  Angela J. White\r\n@50Plushealths\r\n·\r\nDec ...        Fibromyalgia   
 
-                                         StemmedTweets AutoImmuneDisorder  \
-407  medivizor\r\nmedivizor\r\n·\r\nnov \r\ncoping ...   Leukemia_Disease   
-196  medical news bulletin\r\nmednewsbulletin\r\n·\...       Fibromyalgia   
-359  drtharanga kumari wickramasooriya\r\ndrtharang...     Kidney_Disease   
-39   nola unknown\r\nunknowndiary\r\n·\r\nsep  \r\n...     Celiac_Disease   
-245  christine blome\r\nblomechristine\r\n·\r\njan ...         MS_Disease   
+    Celiac_Not Lkm_Not Kd_Not RA_Not MS_Not Chron_Not Fibro_Not Hashi_Not  \
+288        not     not    not    not     MS       not       not       not   
+70      celiac     not    not    not    not       not       not       not   
+184        not     Lkm    not    not    not       not       not       not   
+459        not     not    not    not    not       not       not     Hashi   
+448        not     not    not    not    not       not     fibro       not   
 
      length  
-407     126  
-196     245  
-359     312  
-39      319  
-245     196  
+288     281  
+70      247  
+184     317  
+459     142  
+448     255  
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">)</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[9]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x2365a2ff780&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
 </div>
 
 </div>
@@ -13796,7 +13896,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13815,22 +13915,15 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x18f59ff4128&gt;</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
+<pre>count    507.000000
+mean     276.568047
+std      104.552353
+min       87.000000
+25%      201.500000
+50%      279.000000
+75%      320.500000
+max      847.000000
+Name: length, dtype: float64</pre>
 </div>
 
 </div>
@@ -13844,49 +13937,9 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[11]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>count    507.000000
-mean     243.998028
-std       92.843285
-min       77.000000
-25%      175.500000
-50%      244.000000
-75%      287.000000
-max      604.000000
-Name: length, dtype: float64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">LemmatizedTweets</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span> <span class="c1">#near the max for length of LemmatizedTweets</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">AutoImmuneDisorder</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span> <span class="c1">#near the max for length of LemmatizedTweets</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13903,8 +13956,9 @@ Name: length, dtype: float64</pre>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[75, 432, 105, 104, 58, 145, 26, 82, 109, 111, 99, 167, 149]
-[&#39;Hashimoto_Disease&#39;, &#39;Leukemia_Disease&#39;, &#39;Fibromyalgia&#39;, &#39;Fibromyalgia&#39;, &#39;Hashimoto_Disease&#39;, &#39;Fibromyalgia&#39;, &#39;Celiac_Disease&#39;, &#39;Chron_Disease&#39;, &#39;Fibromyalgia&#39;, &#39;Fibromyalgia&#39;, &#39;Fibromyalgia&#39;, &#39;Fibromyalgia&#39;, &#39;Fibromyalgia&#39;]
+<pre>[151]
+[&#39;Leukemia&#39;]
+[&#39;BTS Mauritius\r\n@BTSMauritius\r\n·\r\n19h\r\nThe Korea Leukemia Children\x92s Foundation announced that 553 ARMYs donated blood in honour of @BTS_twt\r\n\x92s Jin birthday!\r\n\r\nIt\x92ll be used for children with cancer who need to receive large blood transfusions during treatment, helping to ease the burden of costs for patients\x92 families.\r\nQuote Tweet\r\n??????\r\n??\r\n??\r\n@_nojam_nolife\r\n · Dec 3\r\n????? ? ??, ?? ?? ??? ??(??)  \r\n??\r\nhttp://entertain.v.daum.net/v/20191204091525391\r\n\r\n#????? #BTS @BTS_twt \r\n\r\n??????????? ?????? ????? ? ????? ?? ?? ??? 12? 4? ????? ?? ???? ?? ??? ???? ??? 553?? ????? ???.\r\nImage\r\nImage\r\nImage\r\nImage\r\nImprisoned Babies\r\n@aptlmetin\r\n·\r\nDec 3\r\nAkif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment process. He needs medicare. Let mom?enay DA?TAN have her trial without arrest!\r\n#InternationalDisabilityDay &#39;]
 </pre>
 </div>
 </div>
@@ -13915,11 +13969,11 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-<span class="n">reviews</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;AutoImmuneDisorder&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">reviews</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;Type&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13943,21 +13997,21 @@ Name: length, dtype: float64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[13]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A1780B8&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A1C4E48&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A1FA438&gt;],
-       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A22C9E8&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A25DF28&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A29A518&gt;],
-       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A2CCAC8&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A3090F0&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000018F5A309128&gt;]],
+<pre>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A426518&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A46BBA8&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A4A3198&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A4D3748&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A504C88&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A544278&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A575828&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A5A6E10&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000002365A5A6E48&gt;]],
       dtype=object)</pre>
 </div>
 
@@ -13971,7 +14025,7 @@ Name: length, dtype: float64</pre>
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -13984,7 +14038,7 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_into_tokens</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
@@ -14000,10 +14054,10 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">LemmatizedTweets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">split_into_tokens</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">split_into_tokens</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14016,18 +14070,18 @@ Name: length, dtype: float64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>407    [medivizor, medivizor, ·, nov, cope, with, cml...
-196    [medical, news, bulletin, mednewsbulletin, ·, ...
-359    [drtharanga, kumari, wickramasooriya, drtharan...
-39     [nola, unknown, unknowndiary, ·, sep, reply, t...
-245    [christine, blome, blomechristine, ·, jan, our...
-Name: LemmatizedTweets, dtype: object</pre>
+<pre>288    [Aleksandar, dr, Petrov, aleksandar_BG, ·, Dec...
+70     [Beyond, UNKNOWN, BeyondUNKNOWN, ·, Sep, 17, 2...
+184    [HandsOffVenezuela, ChicoFreedom, ·, Dec, 2, o...
+459    [Adult, Pediatric, Ear, Nose, Throat, EarAdult...
+448    [Angela, J, White, 50Plushealths, ·, Dec, 15, ...
+Name: Tweet, dtype: object</pre>
 </div>
 
 </div>
@@ -14038,7 +14092,7 @@ Name: LemmatizedTweets, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">TextBlob</span><span class="p">(</span><span class="s2">&quot;hello world, how is it going?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tags</span>
@@ -14054,7 +14108,7 @@ Name: LemmatizedTweets, dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -14076,7 +14130,7 @@ Name: LemmatizedTweets, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
@@ -14106,7 +14160,7 @@ Name: LemmatizedTweets, dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt output_prompt">Out[16]:</div>
 
 
 
@@ -14123,7 +14177,7 @@ Name: LemmatizedTweets, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="k">import</span> <span class="n">stopwords</span>
@@ -14139,7 +14193,7 @@ Name: LemmatizedTweets, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_into_lemmas</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
@@ -14151,7 +14205,7 @@ Name: LemmatizedTweets, dtype: object</pre>
     <span class="c1"># for each word, take its &quot;base form&quot; = lemma </span>
     <span class="k">return</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lemma</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop</span><span class="p">]</span>
 
-<span class="n">reviews</span><span class="o">.</span><span class="n">LemmatizedTweets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">split_into_lemmas</span><span class="p">)</span>
+<span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">split_into_lemmas</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14164,18 +14218,18 @@ Name: LemmatizedTweets, dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>407    [medivizor, medivizor, ·, nov, cope, cml, chec...
-196    [medical, news, bulletin, mednewsbulletin, ·, ...
-359    [drtharanga, kumari, wickramasooriya, drtharan...
-39     [nola, unknown, unknowndiary, ·, sep, reply, n...
-245    [christine, blome, blomechristine, ·, jan, new...
-Name: LemmatizedTweets, dtype: object</pre>
+<pre>288    [aleksandar, dr, petrov, aleksandar_bg, ·, dec...
+70     [beyond, unknown, beyondunknown, ·, sep, 17, 2...
+184    [handsoffvenezuela, chicofreedom, ·, dec, 2, o...
+459    [adult, pediatric, ear, nose, throat, earadult...
+448    [angela, white, 50plushealths, ·, dec, 15, 201...
+Name: Tweet, dtype: object</pre>
 </div>
 
 </div>
@@ -14186,11 +14240,13 @@ Name: LemmatizedTweets, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-<span class="n">bow_transformer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">split_into_lemmas</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;LemmatizedTweets&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Celiac or Not classes</span>
+
+<span class="c1">#%%time</span>
+<span class="n">bow_transformer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">split_into_lemmas</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bow_transformer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="p">))</span>
 </pre></div>
 
@@ -14208,10 +14264,48 @@ Name: LemmatizedTweets, dtype: object</pre>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>4208
-Wall time: 734 ms
+<pre>4792
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bow_transformer</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>CountVectorizer(analyzer=&lt;function split_into_lemmas at 0x000002365C19DAE8&gt;,
+                binary=False, decode_error=&#39;strict&#39;,
+                dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
+                lowercase=True, max_df=1.0, max_features=None, min_df=1,
+                ngram_range=(1, 4), preprocessor=None, stop_words=None,
+                strip_accents=None, token_pattern=&#39;(?u)\\b\\w\\w+\\b&#39;,
+                tokenizer=None, vocabulary=None)</pre>
+</div>
+
 </div>
 
 </div>
@@ -14223,7 +14317,7 @@ Wall time: 734 ms
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">review4</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;LemmatizedTweets&#39;</span><span class="p">][</span><span class="mi">42</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">review4</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">][</span><span class="mi">148</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">review4</span><span class="p">)</span>
 </pre></div>
 
@@ -14241,7 +14335,11 @@ Wall time: 734 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>purna purnamusic · jun gluten shouldn  t be so painful no sleep night two advice try antihistamine ginger tea ibuprofen and activate charcoal over the last hour unknown treatment
+<pre>Peking University
+@PKU1898
+·
+Nov 30
+Published in Cold Spring Harbor Perspectives in Medicine, #Peking Universitys Wu Hong and team analyzed connections between a tumor suppressing gene called PTEN, the formation of blood cell components, and leukemia. #PekingScience
 </pre>
 </div>
 </div>
@@ -14273,28 +14371,35 @@ Wall time: 734 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  (0, 49)	1
-  (0, 81)	1
-  (0, 214)	1
-  (0, 628)	1
-  (0, 1458)	1
-  (0, 1476)	1
-  (0, 1665)	1
-  (0, 1871)	1
-  (0, 2113)	1
-  (0, 2191)	1
-  (0, 2713)	1
-  (0, 2848)	1
-  (0, 3129)	1
-  (0, 3130)	1
-  (0, 3473)	1
-  (0, 3702)	1
-  (0, 3845)	1
-  (0, 3873)	1
-  (0, 3890)	1
-  (0, 3944)	1
-  (0, 4199)	1
-  (0, 4206)	1
+<pre>  (0, 113)	1
+  (0, 371)	1
+  (0, 705)	1
+  (0, 816)	1
+  (0, 898)	1
+  (0, 1023)	1
+  (0, 1062)	1
+  (0, 1085)	1
+  (0, 1780)	1
+  (0, 1846)	1
+  (0, 1990)	1
+  (0, 2095)	1
+  (0, 2545)	1
+  (0, 2788)	1
+  (0, 3111)	1
+  (0, 3303)	2
+  (0, 3304)	1
+  (0, 3330)	1
+  (0, 3369)	1
+  (0, 3533)	1
+  (0, 3535)	1
+  (0, 4022)	1
+  (0, 4140)	1
+  (0, 4205)	1
+  (0, 4401)	1
+  (0, 4472)	1
+  (0, 4474)	1
+  (0, 4729)	1
+  (0, 4790)	1
 </pre>
 </div>
 </div>
@@ -14309,7 +14414,7 @@ Wall time: 734 ms
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-<span class="n">reviews_bow</span> <span class="o">=</span> <span class="n">bow_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;LemmatizedTweets&#39;</span><span class="p">])</span>
+<span class="n">reviews_bow</span> <span class="o">=</span> <span class="n">bow_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sparse matrix shape:&#39;</span><span class="p">,</span> <span class="n">reviews_bow</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of non-zeros:&#39;</span><span class="p">,</span> <span class="n">reviews_bow</span><span class="o">.</span><span class="n">nnz</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sparsity: </span><span class="si">%.2f%%</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mf">100.0</span> <span class="o">*</span> <span class="n">reviews_bow</span><span class="o">.</span><span class="n">nnz</span> <span class="o">/</span> <span class="p">(</span><span class="n">reviews_bow</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">reviews_bow</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
@@ -14329,10 +14434,10 @@ Wall time: 734 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>sparse matrix shape: (507, 4208)
-number of non-zeros: 11902
-sparsity: 0.56%
-Wall time: 781 ms
+<pre>sparse matrix shape: (507, 4792)
+number of non-zeros: 12995
+sparsity: 0.53%
+Wall time: 1 s
 </pre>
 </div>
 </div>
@@ -14349,8 +14454,8 @@ Wall time: 781 ms
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split/splice into training ~ 80% and testing ~ 20%</span>
 <span class="n">reviews_bow_train</span> <span class="o">=</span> <span class="n">reviews_bow</span><span class="p">[:</span><span class="mi">400</span><span class="p">]</span>
 <span class="n">reviews_bow_test</span> <span class="o">=</span> <span class="n">reviews_bow</span><span class="p">[</span><span class="mi">400</span><span class="p">:]</span>
-<span class="n">reviews_sentiment_train</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;AutoImmuneDisorder&#39;</span><span class="p">][:</span><span class="mi">400</span><span class="p">]</span>
-<span class="n">reviews_sentiment_test</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;AutoImmuneDisorder&#39;</span><span class="p">][</span><span class="mi">400</span><span class="p">:]</span>
+<span class="n">reviews_sentiment_train</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Celiac_Not&#39;</span><span class="p">][:</span><span class="mi">400</span><span class="p">]</span>
+<span class="n">reviews_sentiment_test</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Celiac_Not&#39;</span><span class="p">][</span><span class="mi">400</span><span class="p">:]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">reviews_bow_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">reviews_bow_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -14370,8 +14475,8 @@ Wall time: 781 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(400, 4208)
-(107, 4208)
+<pre>(400, 4792)
+(107, 4792)
 </pre>
 </div>
 </div>
@@ -14402,7 +14507,7 @@ Wall time: 781 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Wall time: 78.1 ms
+<pre>Wall time: 15.6 ms
 </pre>
 </div>
 </div>
@@ -14417,7 +14522,7 @@ Wall time: 781 ms
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicted:&#39;</span><span class="p">,</span> <span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">bow4</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;expected:&#39;</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">AutoImmuneDisorder</span><span class="p">[</span><span class="mi">42</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;expected:&#39;</span><span class="p">,</span> <span class="n">reviews</span><span class="o">.</span><span class="n">Celiac_Not</span><span class="p">[</span><span class="mi">151</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -14434,8 +14539,8 @@ Wall time: 781 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>predicted: Celiac_Disease
-expected: Celiac_Disease
+<pre>predicted: not
+expected: not
 </pre>
 </div>
 </div>
@@ -14467,32 +14572,16 @@ expected: Celiac_Disease
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;MS_Disease&#39; &#39;Leukemia_Disease&#39;
- &#39;MS_Disease&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39; &#39;Kidney_Disease&#39;
- &#39;Hashimoto_Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;MS_Disease&#39; &#39;MS_Disease&#39; &#39;MS_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39; &#39;Leukemia_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39;
- &#39;Celiac_Disease&#39; &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39;
- &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39; &#39;Leukemia_Disease&#39;
- &#39;MS_Disease&#39; &#39;MS_Disease&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39; &#39;MS_Disease&#39;
- &#39;MS_Disease&#39; &#39;Fibromyalgia&#39; &#39;Hashimoto_Disease&#39; &#39;MS_Disease&#39; &#39;MS_Disease&#39;
- &#39;MS_Disease&#39; &#39;MS_Disease&#39; &#39;Leukemia_Disease&#39; &#39;MS_Disease&#39; &#39;MS_Disease&#39;
- &#39;Celiac_Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39;
- &#39;MS_Disease&#39; &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39; &#39;MS_Disease&#39;
- &#39;Leukemia_Disease&#39; &#39;MS_Disease&#39; &#39;Leukemia_Disease&#39; &#39;Kidney_Disease&#39;
- &#39;MS_Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;MS_Disease&#39;
- &#39;Leukemia_Disease&#39; &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39;
- &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39; &#39;Celiac_Disease&#39; &#39;MS_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;MS_Disease&#39; &#39;Hashimoto_Disease&#39; &#39;Leukemia_Disease&#39;
- &#39;MS_Disease&#39; &#39;MS_Disease&#39; &#39;Celiac_Disease&#39; &#39;MS_Disease&#39; &#39;Fibromyalgia&#39;
- &#39;MS_Disease&#39; &#39;MS_Disease&#39; &#39;Fibromyalgia&#39; &#39;Leukemia_Disease&#39;
- &#39;Leukemia_Disease&#39; &#39;MS_Disease&#39; &#39;RA_Disease&#39; &#39;Hashimoto_Disease&#39;
- &#39;Celiac_Disease&#39; &#39;MS_Disease&#39; &#39;Hashimoto_Disease&#39; &#39;Celiac_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Celiac_Disease&#39; &#39;MS_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;Hashimoto_Disease&#39; &#39;Celiac_Disease&#39; &#39;MS_Disease&#39;
- &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;MS_Disease&#39; &#39;MS_Disease&#39;
- &#39;Leukemia_Disease&#39; &#39;Fibromyalgia&#39;]
+<pre>[&#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;celiac&#39; &#39;not&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;celiac&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;celiac&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;celiac&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;celiac&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;celiac&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;
+ &#39;celiac&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;celiac&#39;
+ &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39; &#39;not&#39;]
 </pre>
 </div>
 </div>
@@ -14525,16 +14614,10 @@ expected: Celiac_Disease
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>accuracy 0.6635514018691588
+<pre>accuracy 0.8878504672897196
 confusion matrix
- [[ 2  0  1  0  1  0  3  0]
- [ 2  0  0  0  0  0  2  1]
- [ 0  0 23  0  0  0  2  0]
- [ 2  0  3  6  0  0  0  0]
- [ 1  0  0  0  1  1  1  0]
- [ 0  0  0  0  0 21  1  0]
- [ 1  0  2  0  0  1 18  0]
- [ 0  0  5  0  0  0  6  0]]
+ [[ 1  5]
+ [ 7 94]]
 (row=expected, col=predicted)
 </pre>
 </div>
@@ -14568,33 +14651,15 @@ confusion matrix
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>                   precision    recall  f1-score   support
+<pre>              precision    recall  f1-score   support
 
-   Celiac_Disease       0.25      0.29      0.27         7
-    Chron_Disease       0.00      0.00      0.00         5
-     Fibromyalgia       0.68      0.92      0.78        25
-Hashimoto_Disease       1.00      0.55      0.71        11
-   Kidney_Disease       0.50      0.25      0.33         4
- Leukemia_Disease       0.91      0.95      0.93        22
-       MS_Disease       0.55      0.82      0.65        22
-       RA_Disease       0.00      0.00      0.00        11
+      celiac       0.12      0.17      0.14         6
+         not       0.95      0.93      0.94       101
 
-         accuracy                           0.66       107
-        macro avg       0.49      0.47      0.46       107
-     weighted avg       0.60      0.66      0.61       107
+    accuracy                           0.89       107
+   macro avg       0.54      0.55      0.54       107
+weighted avg       0.90      0.89      0.90       107
 
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>c:\users\m\anaconda2\envs\python36\lib\site-packages\sklearn\metrics\classification.py:1437: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
-  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
 </pre>
 </div>
 </div>
@@ -14605,13 +14670,12 @@ Hashimoto_Disease       1.00      0.55      0.71        11
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">predict_review</span><span class="p">(</span><span class="n">new_review</span><span class="p">):</span> 
     <span class="n">new_sample</span> <span class="o">=</span> <span class="n">bow_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">new_review</span><span class="p">])</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new_sample</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">new_review</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Max: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">new_review</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">The respective order new or pro probabilities:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new_sample</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14622,24 +14686,23 @@ Hashimoto_Disease       1.00      0.55      0.71        11
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The respective probabilities correspond to those diseases alphebatized as</p>
-<p>[[1-Celiac Disease, 2-Chron's Disease, 3-Fibromyalgia, 4-Hashimoto, 5-Kidney Disease, 
-  6-Leukemia, 7-Multiple Sclerosis, 8-Rheumatoid Arthritis]]</p>
-
+<h2 id="The-probabilities-of-being-Celiac-Disease-or-not-are-in-alphabetical-order-for-[Celiac-Disease,-Not]">The probabilities of being Celiac Disease or not are in alphabetical order for [Celiac Disease, Not]<a class="anchor-link" href="#The-probabilities-of-being-Celiac-Disease-or-not-are-in-alphabetical-order-for-[Celiac-Disease,-Not]">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;sick. pain. sleepless. anxious.&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;driving to the hospital.&#39;</span><span class="p">)</span>
 
-<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;digestive. hungry.&#39;</span><span class="p">)</span>
+<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;stomach aches.&#39;</span><span class="p">)</span>
 
-<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;bruising. sleepy. tired. headache.&#39;</span><span class="p">)</span>
-<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;energy. crazy. manic. depressed. angry.&#39;</span><span class="p">)</span>
+<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;gluten.&#39;</span><span class="p">)</span>
+<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;bring home some coffee.&#39;</span><span class="p">)</span>
+<span class="c1">#a snippet of an actual tweet from RA</span>
+<span class="n">predict_review</span><span class="p">(</span><span class="s1">&#39;carbs galore&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14656,13 +14719,25 @@ Hashimoto_Disease       1.00      0.55      0.71        11
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>sick. pain. sleepless. anxious. 	 [[0.01 0.   0.88 0.01 0.01 0.01 0.07 0.01]] 	Max:  0.88 
+<pre>driving to the hospital. 
+The respective order new or pro probabilities:
+ [[0.07 0.93]] 
 
-digestive. hungry. 	 [[0.11 0.03 0.19 0.05 0.1  0.24 0.24 0.04]] 	Max:  0.24 
+stomach aches. 
+The respective order new or pro probabilities:
+ [[0.11 0.89]] 
 
-bruising. sleepy. tired. headache. 	 [[0.09 0.08 0.39 0.05 0.09 0.13 0.13 0.05]] 	Max:  0.39 
+gluten. 
+The respective order new or pro probabilities:
+ [[0.58 0.42]] 
 
-energy. crazy. manic. depressed. angry. 	 [[0.1  0.05 0.17 0.06 0.1  0.22 0.24 0.06]] 	Max:  0.24 
+bring home some coffee. 
+The respective order new or pro probabilities:
+ [[0.16 0.84]] 
+
+carbs galore 
+The respective order new or pro probabilities:
+ [[0.38 0.62]] 
 
 </pre>
 </div>

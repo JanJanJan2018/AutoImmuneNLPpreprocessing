@@ -13094,7 +13094,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline 
@@ -13118,7 +13118,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;TargetReady.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;unicode_escape&#39;</span><span class="p">)</span> 
@@ -13132,7 +13132,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13148,7 +13148,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[43]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13214,7 +13214,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
@@ -13230,7 +13230,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[44]:</div>
+    <div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -13296,7 +13296,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">shape</span>
@@ -13312,7 +13312,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[45]:</div>
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -13329,7 +13329,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="n">reviews</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
@@ -13374,7 +13374,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13390,7 +13390,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[47]:</div>
+    <div class="prompt output_prompt">Out[7]:</div>
 
 
 
@@ -13439,21 +13439,21 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
       <td>Celiac Disease</td>
       <td>50</td>
       <td>50</td>
-      <td>?????????? ????????\r\n?\r\n??\r\n@ventforbats...</td>
+      <td>Truthbetold?\r\n@wlkthlne\r\n·\r\nNov 30\r\nRe...</td>
       <td>1</td>
     </tr>
     <tr>
       <td>Chron's Disease</td>
       <td>19</td>
       <td>19</td>
-      <td>Purpose ?\r\n@HappyBelieber\r\n·\r\nJan 19, 20...</td>
+      <td>-DC-\r\n @FuckwitdaDC\r\n·\r\nJul 8, 2015\r\...</td>
       <td>1</td>
     </tr>
     <tr>
       <td>Fibromyalgia</td>
       <td>99</td>
       <td>96</td>
-      <td>Chronic Disease Coalition\r\n@ChronicRights\r\...</td>
+      <td>Women In Pain\r\n@forgrace\r\n·\r\nNov 26\r\nF...</td>
       <td>2</td>
     </tr>
     <tr>
@@ -13467,28 +13467,28 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
       <td>Kidney Disease</td>
       <td>43</td>
       <td>43</td>
-      <td>Lupus Foundation of America\r\n@LupusOrg\r\n·\...</td>
+      <td>B.K. Arogyam\r\n@KArogyam\r\n·\r\nDec 2\r\nIf ...</td>
       <td>1</td>
     </tr>
     <tr>
       <td>Leukemia</td>
       <td>119</td>
       <td>119</td>
-      <td>Abi\r\n@brokenleadheart\r\n·\r\nDec 3\r\nReply...</td>
+      <td>Sabrcare Trust\r\n@sabrcaretrust\r\n·\r\nDec 2...</td>
       <td>1</td>
     </tr>
     <tr>
       <td>Multiple Sclerosis</td>
       <td>119</td>
       <td>119</td>
-      <td>Fiona Walsh\r\n@iamfionawalsh\r\n·\r\nDec 1\r\...</td>
+      <td>Multiple Sclerosis\r\n@UNKNOWN_Bio\r\n·\r\nDec...</td>
       <td>1</td>
     </tr>
     <tr>
       <td>Rheumatoid Arthritis</td>
       <td>28</td>
       <td>28</td>
-      <td>INDHEAL\r\n@indheal\r\n·\r\nOct 29\r\nUNKNOWN ...</td>
+      <td>Frontiers Medicine\r\n@FrontMedicine\r\n·\r\nO...</td>
       <td>1</td>
     </tr>
   </tbody>
@@ -13504,7 +13504,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">text</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
@@ -13548,7 +13548,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">)</span> 
@@ -13564,13 +13564,13 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[49]:</div>
+    <div class="prompt output_prompt">Out[9]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x299f272aef0&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x22fd5032240&gt;</pre>
 </div>
 
 </div>
@@ -13596,7 +13596,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -13612,7 +13612,7 @@ tweets for each disease, as many as were found that weren't mostly marketing, us
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[50]:</div>
+    <div class="prompt output_prompt">Out[10]:</div>
 
 
 
@@ -13637,11 +13637,12 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span> <span class="c1">#near the max for length of LemmatizedTweets</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="p">[</span><span class="n">reviews</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">700</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13660,6 +13661,7 @@ Name: length, dtype: float64</pre>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[151]
 [&#39;Leukemia&#39;]
+[&#39;BTS Mauritius\r\n@BTSMauritius\r\n·\r\n19h\r\nThe Korea Leukemia Children\x92s Foundation announced that 553 ARMYs donated blood in honour of @BTS_twt\r\n\x92s Jin birthday!\r\n\r\nIt\x92ll be used for children with cancer who need to receive large blood transfusions during treatment, helping to ease the burden of costs for patients\x92 families.\r\nQuote Tweet\r\n??????\r\n??\r\n??\r\n@_nojam_nolife\r\n · Dec 3\r\n????? ? ??, ?? ?? ??? ??(??)  \r\n??\r\nhttp://entertain.v.daum.net/v/20191204091525391\r\n\r\n#????? #BTS @BTS_twt \r\n\r\n??????????? ?????? ????? ? ????? ?? ?? ??? 12? 4? ????? ?? ???? ?? ??? ???? ??? 553?? ????? ???.\r\nImage\r\nImage\r\nImage\r\nImage\r\nImprisoned Babies\r\n@aptlmetin\r\n·\r\nDec 3\r\nAkif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment process. He needs medicare. Let mom?enay DA?TAN have her trial without arrest!\r\n#InternationalDisabilityDay &#39;]
 </pre>
 </div>
 </div>
@@ -13670,7 +13672,7 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
@@ -13691,28 +13693,28 @@ Name: length, dtype: float64</pre>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Wall time: 563 ms
+<pre>Wall time: 484 ms
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[53]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F2795240&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F286E128&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F289A748&gt;],
-       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F28CAC88&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F2905278&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F2933828&gt;],
-       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299EBA61470&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F2987F98&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000299F2987FD0&gt;]],
+<pre>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD511BD30&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD51796D8&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD51A4C88&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD51E3278&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD5213828&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD5246DD8&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD52843C8&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD52B39B0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000022FD52B39E8&gt;]],
       dtype=object)</pre>
 </div>
 
@@ -13739,7 +13741,7 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_into_tokens</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
@@ -13755,7 +13757,7 @@ Name: length, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">Tweet</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">split_into_tokens</span><span class="p">)</span>
@@ -13771,7 +13773,7 @@ Name: length, dtype: float64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[55]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -13793,7 +13795,7 @@ Name: Tweet, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">TextBlob</span><span class="p">(</span><span class="s2">&quot;hello world, how is it going?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tags</span>
@@ -13809,7 +13811,7 @@ Name: Tweet, dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[56]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -13831,7 +13833,7 @@ Name: Tweet, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
@@ -13861,7 +13863,7 @@ Name: Tweet, dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[57]:</div>
+    <div class="prompt output_prompt">Out[16]:</div>
 
 
 
@@ -13878,7 +13880,7 @@ Name: Tweet, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="k">import</span> <span class="n">stopwords</span>
@@ -13894,7 +13896,7 @@ Name: Tweet, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_into_lemmas</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
@@ -13919,7 +13921,7 @@ Name: Tweet, dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[64]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -13941,11 +13943,11 @@ Name: Tweet, dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-<span class="n">bow_transformer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">split_into_lemmas</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">])</span>
+<span class="n">bow_transformer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="n">split_into_lemmas</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bow_transformer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="p">))</span>
 </pre></div>
 
@@ -13963,8 +13965,8 @@ Name: Tweet, dtype: object</pre>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>12
-Wall time: 234 ms
+<pre>4791
+Wall time: 1.05 s
 </pre>
 </div>
 </div>
@@ -13975,7 +13977,7 @@ Wall time: 234 ms
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bow_transformer</span>
@@ -13991,17 +13993,17 @@ Wall time: 234 ms
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[66]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>CountVectorizer(analyzer=&lt;function split_into_lemmas at 0x00000299F2B30D90&gt;,
+<pre>CountVectorizer(analyzer=&lt;function split_into_lemmas at 0x0000022FCC9CC730&gt;,
                 binary=False, decode_error=&#39;strict&#39;,
                 dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
                 lowercase=True, max_df=1.0, max_features=None, min_df=1,
-                ngram_range=(2, 2), preprocessor=None, stop_words=None,
+                ngram_range=(1, 3), preprocessor=None, stop_words=None,
                 strip_accents=None, token_pattern=&#39;(?u)\\b\\w\\w+\\b&#39;,
                 tokenizer=None, vocabulary=None)</pre>
 </div>
@@ -14014,10 +14016,10 @@ Wall time: 234 ms
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">review4</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">][</span><span class="mi">151</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">review4</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">[</span><span class="s1">&#39;Tweet&#39;</span><span class="p">][</span><span class="mi">148</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">review4</span><span class="p">)</span>
 </pre></div>
 
@@ -14035,37 +14037,11 @@ Wall time: 234 ms
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>BTS Mauritius
-@BTSMauritius
+<pre>Peking University
+@PKU1898
 ·
-19h
-The Korea Leukemia Childrens Foundation announced that 553 ARMYs donated blood in honour of @BTS_twt
-s Jin birthday!
-
-Itll be used for children with cancer who need to receive large blood transfusions during treatment, helping to ease the burden of costs for patients families.
-Quote Tweet
-??????
-??
-??
-@_nojam_nolife
- · Dec 3
-????? ? ??, ?? ?? ??? ??(??)  
-??
-http://entertain.v.daum.net/v/20191204091525391
-
-#????? #BTS @BTS_twt 
-
-??????????? ?????? ????? ? ????? ?? ?? ??? 12? 4? ????? ?? ???? ?? ??? ???? ??? 553?? ????? ???.
-Image
-Image
-Image
-Image
-Imprisoned Babies
-@aptlmetin
-·
-Dec 3
-Akif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment process. He needs medicare. Let mom?enay DA?TAN have her trial without arrest!
-#InternationalDisabilityDay 
+Nov 30
+Published in Cold Spring Harbor Perspectives in Medicine, #Peking Universitys Wu Hong and team analyzed connections between a tumor suppressing gene called PTEN, the formation of blood cell components, and leukemia. #PekingScience
 </pre>
 </div>
 </div>
@@ -14076,7 +14052,7 @@ Akif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bow4</span> <span class="o">=</span> <span class="n">bow_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">review4</span><span class="p">])</span>
@@ -14097,7 +14073,35 @@ Akif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  (0, 8)	2
+<pre>  (0, 113)	1
+  (0, 371)	1
+  (0, 705)	1
+  (0, 816)	1
+  (0, 898)	1
+  (0, 1023)	1
+  (0, 1062)	1
+  (0, 1085)	1
+  (0, 1779)	1
+  (0, 1847)	1
+  (0, 1991)	1
+  (0, 2096)	1
+  (0, 2546)	1
+  (0, 2789)	1
+  (0, 3112)	1
+  (0, 3304)	2
+  (0, 3305)	1
+  (0, 3331)	1
+  (0, 3370)	1
+  (0, 3534)	1
+  (0, 3536)	1
+  (0, 4024)	1
+  (0, 4142)	1
+  (0, 4207)	1
+  (0, 4403)	1
+  (0, 4474)	1
+  (0, 4476)	1
+  (0, 4728)	1
+  (0, 4789)	1
 </pre>
 </div>
 </div>
@@ -14108,7 +14112,7 @@ Akif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
@@ -14132,10 +14136,10 @@ Akif Acute Lymphoblastic Leukemia patient. He is going through a heavy treatment
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>sparse matrix shape: (507, 12)
-number of non-zeros: 412
-sparsity: 6.77%
-Wall time: 1.05 s
+<pre>sparse matrix shape: (507, 4791)
+number of non-zeros: 12992
+sparsity: 0.53%
+Wall time: 1.02 s
 </pre>
 </div>
 </div>
@@ -14146,7 +14150,7 @@ Wall time: 1.05 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split/splice into training ~ 80% and testing ~ 20%</span>
@@ -14173,8 +14177,8 @@ Wall time: 1.05 s
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(400, 12)
-(107, 12)
+<pre>(400, 4791)
+(107, 4791)
 </pre>
 </div>
 </div>
@@ -14185,7 +14189,7 @@ Wall time: 1.05 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> review_sentiment = MultinomialNB().fit(reviews_bow_train, reviews_sentiment_train)
@@ -14205,7 +14209,7 @@ Wall time: 1.05 s
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Wall time: 0 ns
+<pre>Wall time: 15.6 ms
 </pre>
 </div>
 </div>
@@ -14216,7 +14220,7 @@ Wall time: 1.05 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicted:&#39;</span><span class="p">,</span> <span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">bow4</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -14249,7 +14253,7 @@ expected: Leukemia
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">reviews_bow_test</span><span class="p">)</span>
@@ -14270,35 +14274,33 @@ expected: Leukemia
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;Multiple Sclerosis&#39; &#39;Celiac Disease&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Fibromyalgia&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39;
- &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Hashimoto Disease&#39; &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39;
- &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39; &#39;Leukemia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39; &#39;Leukemia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Leukemia&#39;
- &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39;
- &#39;Fibromyalgia&#39; &#39;Kidney Disease&#39; &#39;Fibromyalgia&#39; &#39;Leukemia&#39;
- &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39; &#39;Kidney Disease&#39; &#39;Celiac Disease&#39;
- &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
- &#39;Fibromyalgia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39;
- &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39;
- &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Celiac Disease&#39; &#39;Fibromyalgia&#39;
- &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39;
+<pre>[&#39;Fibromyalgia&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39;
+ &#39;Fibromyalgia&#39; &#39;Kidney Disease&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Rheumatoid Arthritis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia&#39;
+ &#39;Hashimoto Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Kidney Disease&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Celiac Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39;
+ &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Hashimoto Disease&#39;
+ &#39;Fibromyalgia&#39; &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39;
+ &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Hashimoto Disease&#39;
  &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39;
- &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39; &#39;Celiac Disease&#39; &#39;Fibromyalgia&#39;
- &#39;Celiac Disease&#39;]
+ &#39;Leukemia&#39; &#39;Fibromyalgia&#39; &#39;Multiple Sclerosis&#39; &#39;Hashimoto Disease&#39;
+ &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Fibromyalgia&#39; &#39;Hashimoto Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39;
+ &#39;Leukemia&#39; &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Celiac Disease&#39;
+ &#39;Celiac Disease&#39; &#39;Celiac Disease&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia&#39; &#39;Fibromyalgia&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Leukemia&#39; &#39;Leukemia&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia&#39;
+ &#39;Fibromyalgia&#39; &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39;
+ &#39;Hashimoto Disease&#39; &#39;Fibromyalgia&#39; &#39;Fibromyalgia&#39; &#39;Leukemia&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Celiac Disease&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Leukemia&#39; &#39;Leukemia&#39; &#39;Rheumatoid Arthritis&#39;
+ &#39;Multiple Sclerosis&#39; &#39;Fibromyalgia&#39; &#39;Multiple Sclerosis&#39;]
 </pre>
 </div>
 </div>
@@ -14309,7 +14311,7 @@ expected: Leukemia
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">reviews_sentiment_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
@@ -14331,16 +14333,16 @@ expected: Leukemia
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>accuracy 0.5327102803738317
+<pre>accuracy 0.7663551401869159
 confusion matrix
- [[ 2  0  0  0  1  0  3  0]
- [ 1  0  0  0  0  0  2  0]
- [ 0  0  4  1  0  0 18  0]
- [ 3  0  2  0  1  0  2  0]
- [ 6  0  0  0  0  0  0  0]
- [ 0  0  0  0  0 29  0  0]
- [ 4  0  1  0  0  0 22  0]
- [ 1  0  0  0  0  0  4  0]]
+ [[ 2  0  2  0  0  0  2  0]
+ [ 1  0  0  0  0  0  0  2]
+ [ 0  0 22  0  0  0  1  0]
+ [ 1  0  1  6  0  0  0  0]
+ [ 1  0  2  0  1  0  2  0]
+ [ 0  0  1  0  0 28  0  0]
+ [ 1  0  2  0  1  0 23  0]
+ [ 0  0  1  0  0  0  4  0]]
 (row=expected, col=predicted)
 </pre>
 </div>
@@ -14352,7 +14354,7 @@ confusion matrix
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">reviews_sentiment_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
@@ -14376,18 +14378,18 @@ confusion matrix
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>                      precision    recall  f1-score   support
 
-      Celiac Disease       0.12      0.33      0.17         6
+      Celiac Disease       0.33      0.33      0.33         6
      Chron&#39;s Disease       0.00      0.00      0.00         3
-        Fibromyalgia       0.57      0.17      0.27        23
-   Hashimoto Disease       0.00      0.00      0.00         8
-      Kidney Disease       0.00      0.00      0.00         6
-            Leukemia       1.00      1.00      1.00        29
-  Multiple Sclerosis       0.43      0.81      0.56        27
+        Fibromyalgia       0.71      0.96      0.81        23
+   Hashimoto Disease       1.00      0.75      0.86         8
+      Kidney Disease       0.50      0.17      0.25         6
+            Leukemia       1.00      0.97      0.98        29
+  Multiple Sclerosis       0.72      0.85      0.78        27
 Rheumatoid Arthritis       0.00      0.00      0.00         5
 
-            accuracy                           0.53       107
-           macro avg       0.27      0.29      0.25       107
-        weighted avg       0.51      0.53      0.48       107
+            accuracy                           0.77       107
+           macro avg       0.53      0.50      0.50       107
+        weighted avg       0.73      0.77      0.73       107
 
 </pre>
 </div>
@@ -14411,50 +14413,18 @@ Rheumatoid Arthritis       0.00      0.00      0.00         5
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">predict_review</span><span class="p">(</span><span class="n">new_review</span><span class="p">):</span> 
     <span class="n">new_sample</span> <span class="o">=</span> <span class="n">bow_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">new_review</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">new_review</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">The respective order new or pro probabilities:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new_sample</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">review_sentiment</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new_sample</span><span class="p">),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">new_review</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">max:&#39;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+             
+    
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reviews</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[77]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([&#39;Multiple Sclerosis&#39;, &#39;Celiac Disease&#39;, &#39;Leukemia&#39;,
-       &#39;Hashimoto Disease&#39;, &#39;Fibromyalgia&#39;, &#39;Kidney Disease&#39;,
-       &#39;Rheumatoid Arthritis&#39;, &#34;Chron&#39;s Disease&#34;], dtype=object)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -14462,9 +14432,9 @@ Rheumatoid Arthritis       0.00      0.00      0.00         5
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="There-are-eight-classes-for:">There are eight classes for:<a class="anchor-link" href="#There-are-eight-classes-for:">&#182;</a></h1><p>1:Multiple Sclerosis, 2:Celiac, 3: Leukemia, 4: Hashimoto, 5: Fibromyalgia, 6: Kidney Disease, 7: Rheumatoid Arthritis, 8: Chron's Disease
-The respective probabilities correspond to those diseases
-Below random sentiments were ran to see how well the NLP predictions rank the four figurative tweets.</p>
+<p>The respective probabilities correspond to those diseases alphebatized as</p>
+<p>[[1-Celiac Disease, 2-Chron's Disease, 3-Fibromyalgia, 4-Hashimoto, 5-Kidney Disease, 
+  6-Leukemia, 7-Multiple Sclerosis, 8-Rheumatoid Arthritis]]</p>
 
 </div>
 </div>
@@ -14498,26 +14468,11 @@ Below random sentiments were ran to see how well the NLP predictions rank the fo
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>driving to the hospital. 
-The respective order new or pro probabilities:
- [[0.11 0.04 0.19 0.06 0.09 0.22 0.23 0.06]] 
-
-When is lunch? 
-The respective order new or pro probabilities:
- [[0.11 0.04 0.19 0.06 0.09 0.22 0.23 0.06]] 
-
-Theme parks are great. 
-The respective order new or pro probabilities:
- [[0.11 0.04 0.19 0.06 0.09 0.22 0.23 0.06]] 
-
-Working is great if it pays the bills. 
-The respective order new or pro probabilities:
- [[0.11 0.04 0.19 0.06 0.09 0.22 0.23 0.06]] 
-
-Treatment broadspectrum betalactam antibiotics including sulfonamide trimethoprim associated diagnosis. 
-The respective order new or pro probabilities:
- [[0.11 0.04 0.19 0.06 0.09 0.22 0.23 0.06]] 
-
+<pre>driving to the hospital. [[0.06 0.08 0.13 0.03 0.1  0.4  0.17 0.04]] 	max: 0.4
+When is lunch? [[0.11 0.04 0.19 0.06 0.09 0.22 0.23 0.06]] 	max: 0.23
+Theme parks are great. [[0.14 0.03 0.15 0.04 0.06 0.1  0.4  0.09]] 	max: 0.4
+Working is great if it pays the bills. [[0.04 0.03 0.36 0.12 0.04 0.16 0.18 0.06]] 	max: 0.36
+Treatment broadspectrum betalactam antibiotics including sulfonamide trimethoprim associated diagnosis. [[0.04 0.01 0.32 0.01 0.19 0.12 0.28 0.03]] 	max: 0.32
 </pre>
 </div>
 </div>
@@ -14529,7 +14484,8 @@ The respective order new or pro probabilities:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="In-above-figurative-tweets,-the-eight-classes-of-autoimmune-diseases-for-this-research-gave:">In above figurative tweets, the eight classes of autoimmune diseases for this research gave:<a class="anchor-link" href="#In-above-figurative-tweets,-the-eight-classes-of-autoimmune-diseases-for-this-research-gave:">&#182;</a></h2><p>all as the same probability figures. Not what was expected.</p>
+<p>The max value of the array is the generated prediction
+If all the same probabilities, the variable the bow_transformer was trained on wasn't the reviews or comments</p>
 
 </div>
 </div>
